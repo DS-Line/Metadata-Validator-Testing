@@ -1,0 +1,102 @@
+movies:
+  subject_area: movies
+  table_info:
+    - table: MOVIES
+      joins: []
+  columns:
+    name:
+      name: title of the movie
+      type: varchar
+      column: name
+      desc: Title of the movie
+      fetch: true
+    rating:
+      name: content rating
+      type: varchar
+      column: rating
+      desc: Content rating (e.g., R, PG-13)
+      fetch: false
+    genre:
+      name: genre of the movie
+      type: varchar
+      column: genre
+      desc: Genre of the movie
+      fetch: true
+    year:
+      name: production or release year
+      type: int
+      column: year
+      desc: Original production/release year in home country
+      fetch: true
+    released_date:
+      name: release date
+      type: date
+      column: released_date
+      desc: release date of a movie
+      fetch: true
+    released_country:
+      name: release country
+      type: varchar
+      column: released_country
+      desc: Country where the movie was released
+      fetch: false
+    country:
+      name: production country
+      type: varchar
+      column: country
+      desc: Production country (e.g., Denmark, United States)
+      fetch: false
+    score:
+      name: average rating
+      type: number
+      column: score
+      desc: Average rating (e.g., 7.7)
+      fetch: true
+    votes:
+      name: number of votes or reviews
+      type: int
+      column: votes
+      desc: Number of votes/reviews
+      fetch: false
+    budget:
+      name: production budget
+      type: number
+      column: budget
+      desc: Production budget
+      fetch: false
+    gross:
+      name: box office gross
+      type: number
+      column: gross
+      desc: Box office gross
+      fetch: false
+    director:
+      name: director of the movie
+      type: varchar
+      column: director
+      desc: Director of the movie
+      fetch: false
+    writer:
+      name: screenwriter
+      type: varchar
+      column: writer
+      desc: Screenwriter of the movie
+      fetch: false
+    star:
+      name: lead actor
+      type: varchar
+      column: star
+      desc: Lead actor of the movie
+      fetch: true
+    company:
+      name: production company
+      type: varchar
+      column: company
+      desc: Production company of the movie
+      fetch: false
+    runtime:
+      name: duration in minutes
+      type: int
+      column: runtime
+      desc: Duration of the movie in minutes
+      fetch: true

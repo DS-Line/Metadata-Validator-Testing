@@ -1,0 +1,227 @@
+subject_area: line_score
+table_info:
+  - table: line_score
+    joins: []
+  - table: team
+    join:
+    - line_score.team_id_home = team.id
+    - line_score.team_id_away = team.id
+  - table: game
+    join:
+    - line_score.game_id = game.game_id
+columns:
+  game_date_est:
+    name: game date est
+    type: timestamp_ntz
+    column: game_date_est
+    desc: Date of the game in Eastern Standard Time (EST).
+  game_sequence:
+    name: game sequence
+    type: int
+    column: game_sequence
+    desc: Sequence number for the game (used for sorting or ordering).
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  team_id_home:
+    name: home team id
+    type: string
+    column: team_id_home
+    desc: Unique identifier for the home team.
+  team_abbreviation_home:
+    name: home team abbreviation
+    type: string
+    column: team_abbreviation_home
+    desc: Short code for the home team.
+  team_city_name_home:
+    name: home team city name
+    type: string
+    column: team_city_name_home
+    desc: City where the home team is based.
+  team_nickname_home:
+    name: home team nickname
+    type: string
+    column: team_nickname_home
+    desc: Nickname of the home team.
+  team_wins_losses_home:
+    name: home team wins/losses
+    type: string
+    column: team_wins_losses_home
+    desc: Win-loss record of the home team.
+  pts_qtr1_home:
+    name: home points quarter 1
+    type: string
+    column: pts_qtr1_home
+    desc: Points scored by the home team in the 1st quarter.
+  pts_qtr2_home:
+    name: home points quarter 2
+    type: string
+    column: pts_qtr2_home
+    desc: Points scored by the home team in the 2nd quarter.
+  pts_qtr3_home:
+    name: home points quarter 3
+    type: string
+    column: pts_qtr3_home
+    desc: Points scored by the home team in the 3rd quarter.
+  pts_qtr4_home:
+    name: home points quarter 4
+    type: string
+    column: pts_qtr4_home
+    desc: Points scored by the home team in the 4th quarter.
+  pts_ot1_home:
+    name: home points overtime 1
+    type: int
+    column: pts_ot1_home
+    desc: Points scored by the home team in the 1st overtime period.
+  pts_ot2_home:
+    name: home points overtime 2
+    type: int
+    column: pts_ot2_home
+    desc: Points scored by the home team in the 2nd overtime period.
+  pts_ot3_home:
+    name: home points overtime 3
+    type: int
+    column: pts_ot3_home
+    desc: Points scored by the home team in the 3rd overtime period.
+  pts_ot4_home:
+    name: home points overtime 4
+    type: int
+    column: pts_ot4_home
+    desc: Points scored by the home team in the 4th overtime period.
+  pts_ot5_home:
+    name: home points overtime 5
+    type: int
+    column: pts_ot5_home
+    desc: Points scored by the home team in the 5th overtime period.
+  pts_ot6_home:
+    name: home points overtime 6
+    type: int
+    column: pts_ot6_home
+    desc: Points scored by the home team in the 6th overtime period.
+  pts_ot7_home:
+    name: home points overtime 7
+    type: int
+    column: pts_ot7_home
+    desc: Points scored by the home team in the 7th overtime period.
+  pts_ot8_home:
+    name: home points overtime 8
+    type: int
+    column: pts_ot8_home
+    desc: Points scored by the home team in the 8th overtime period.
+  pts_ot9_home:
+    name: home points overtime 9
+    type: int
+    column: pts_ot9_home
+    desc: Points scored by the home team in the 9th overtime period.
+  pts_ot10_home:
+    name: home points overtime 10
+    type: int
+    column: pts_ot10_home
+    desc: Points scored by the home team in the 10th overtime period.
+  pts_home:
+    name: home total points
+    type: float
+    column: pts_home
+    desc: Total points scored by the home team.
+  team_id_away:
+    name: away team id
+    type: string
+    column: team_id_away
+    desc: Unique identifier for the away team.
+  team_abbreviation_away:
+    name: away team abbreviation
+    type: string
+    column: team_abbreviation_away
+    desc: Short code for the away team.
+  team_city_name_away:
+    name: away team city name
+    type: string
+    column: team_city_name_away
+    desc: City where the away team is based.
+  team_nickname_away:
+    name: away team nickname
+    type: string
+    column: team_nickname_away
+    desc: Nickname of the away team.
+  team_wins_losses_away:
+    name: away team wins/losses
+    type: string
+    column: team_wins_losses_away
+    desc: Win-loss record of the away team.
+  pts_qtr1_away:
+    name: away points quarter 1
+    type: int
+    column: pts_qtr1_away
+    desc: Points scored by the away team in the 1st quarter.
+  pts_qtr2_away:
+    name: away points quarter 2
+    type: string
+    column: pts_qtr2_away
+    desc: Points scored by the away team in the 2nd quarter.
+  pts_qtr3_away:
+    name: away points quarter 3
+    type: string
+    column: pts_qtr3_away
+    desc: Points scored by the away team in the 3rd quarter.
+  pts_qtr4_away:
+    name: away points quarter 4
+    type: int
+    column: pts_qtr4_away
+    desc: Points scored by the away team in the 4th quarter.
+  pts_ot1_away:
+    name: away points overtime 1
+    type: int
+    column: pts_ot1_away
+    desc: Points scored by the away team in the 1st overtime period.
+  pts_ot2_away:
+    name: away points overtime 2
+    type: int
+    column: pts_ot2_away
+    desc: Points scored by the away team in the 2nd overtime period.
+  pts_ot3_away:
+    name: away points overtime 3
+    type: int
+    column: pts_ot3_away
+    desc: Points scored by the away team in the 3rd overtime period.
+  pts_ot4_away:
+    name: away points overtime 4
+    type: int
+    column: pts_ot4_away
+    desc: Points scored by the away team in the 4th overtime period.
+  pts_ot5_away:
+    name: away points overtime 5
+    type: int
+    column: pts_ot5_away
+    desc: Points scored by the away team in the 5th overtime period.
+  pts_ot6_away:
+    name: away points overtime 6
+    type: int
+    column: pts_ot6_away
+    desc: Points scored by the away team in the 6th overtime period.
+  pts_ot7_away:
+    name: away points overtime 7
+    type: int
+    column: pts_ot7_away
+    desc: Points scored by the away team in the 7th overtime period.
+  pts_ot8_away:
+    name: away points overtime 8
+    type: int
+    column: pts_ot8_away
+    desc: Points scored by the away team in the 8th overtime period.
+  pts_ot9_away:
+    name: away points overtime 9
+    type: int
+    column: pts_ot9_away
+    desc: Points scored by the away team in the 9th overtime period.
+  pts_ot10_away:
+    name: away points overtime 10
+    type: int
+    column: pts_ot10_away
+    desc: Points scored by the away team in the 10th overtime period.
+  pts_away:
+    name: away total points
+    type: float
+    column: pts_away
+    desc: Total points scored by the away team.

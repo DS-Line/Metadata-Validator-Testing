@@ -1,0 +1,81 @@
+subject_area: draft_history
+table_info:
+  - table: draft_history
+    joins: []
+  - table: player
+    joins:
+      - draft_history.person_id = player.id
+  - table: team
+    joins:
+      - draft_history.team_id = team.id
+columns:
+  person_id:
+    name: person id
+    type: string
+    column: person_id
+    desc: Unique identifier for the player.
+  player_name:
+    name: player name
+    type: string
+    column: player_name
+    desc: Full name of the player.
+  season:
+    name: season
+    type: string
+    column: season
+    desc: The season of the NBA draft.
+  round_number:
+    name: round number
+    type: int
+    column: round_number
+    desc: The round in which the player was drafted.
+  round_pick:
+    name: round pick
+    type: int
+    column: round_pick
+    desc: The pick number within the draft round.
+  overall_pick:
+    name: overall pick
+    type: int
+    column: overall_pick
+    desc: The overall pick number in the draft.
+  draft_type:
+    name: draft type
+    type: string
+    column: draft_type
+    desc: Type of draft (e.g., Draft, Supplemental Draft).
+  team_id:
+    name: team id
+    type: string
+    column: team_id
+    desc: Unique identifier for the team that drafted the player.
+  team_city:
+    name: team city
+    type: string
+    column: team_city
+    desc: City of the team that drafted the player.
+  team_name:
+    name: team name
+    type: string
+    column: team_name
+    desc: Name of the team that drafted the player.
+  team_abbreviation:
+    name: team abbreviation
+    type: string
+    column: team_abbreviation
+    desc: Short code for the team that drafted the player.
+  organization:
+    name: organization
+    type: string
+    column: organization
+    desc: The college, university, or organization the player was affiliated with before the draft.
+  organization_type:
+    name: organization type
+    type: string
+    column: organization_type
+    desc: Type of organization (e.g., College/University).
+  player_profile_flag:
+    name: player profile flag
+    type: string
+    column: player_profile_flag
+    desc: Indicates if a player profile exists for the player (Y/N).

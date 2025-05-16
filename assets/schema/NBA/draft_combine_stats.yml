@@ -1,0 +1,243 @@
+subject_area: draft_combine_stats
+table_info:
+  - table: draft_combine_stats
+    joins: []
+  - table: player
+    joins:
+      - draft_combine_stats.player_id = player.id
+columns:
+  season:
+    name: season
+    type: string
+    column: season
+    desc: The season of the NBA Draft Combine.
+  player_id:
+    name: player id
+    type: string
+    column: player_id
+    desc: Unique identifier for the player.
+  first_name:
+    name: first name
+    type: string
+    column: first_name
+    desc: Player's first name.
+  last_name:
+    name: last name
+    type: string
+    column: last_name
+    desc: Player's last name.
+  player_name:
+    name: player name
+    type: string
+    column: player_name
+    desc: Full name of the player.
+  position:
+    name: position
+    type: string
+    column: position
+    desc: Player's primary position (e.g., Guard, Forward).
+  height_wo_shoes:
+    name: height without shoes
+    type: float
+    column: height_wo_shoes
+    desc: Player's height without shoes (in inches).
+  height_wo_shoes_ft_in:
+    name: height without shoes (feet-inches)
+    type: string
+    column: height_wo_shoes_ft_in
+    desc: Player's height without shoes in feet and inches.
+  height_w_shoes:
+    name: height with shoes
+    type: float
+    column: height_w_shoes
+    desc: Player's height with shoes (in inches).
+  height_w_shoes_ft_in:
+    name: height with shoes (feet-inches)
+    type: string
+    column: height_w_shoes_ft_in
+    desc: Player's height with shoes in feet and inches.
+  weight:
+    name: weight
+    type: string
+    column: weight
+    desc: Player's weight in pounds.
+  wingspan:
+    name: wingspan
+    type: float
+    column: wingspan
+    desc: Player's wingspan (arm span) in inches.
+  wingspan_ft_in:
+    name: wingspan (feet-inches)
+    type: string
+    column: wingspan_ft_in
+    desc: Player's wingspan in feet and inches.
+  standing_reach:
+    name: standing reach
+    type: float
+    column: standing_reach
+    desc: Player's standing reach (height while standing with arms raised) in inches.
+  standing_reach_ft_in:
+    name: standing reach (feet-inches)
+    type: string
+    column: standing_reach_ft_in
+    desc: Player's standing reach in feet and inches.
+  body_fat_pct:
+    name: body fat percentage
+    type: string
+    column: body_fat_pct
+    desc: Player's body fat percentage.
+  hand_length:
+    name: hand length
+    type: string
+    column: hand_length
+    desc: Length of the player's hand (in inches).
+  hand_width:
+    name: hand width
+    type: string
+    column: hand_width
+    desc: Width of the player's hand (in inches).
+  standing_vertical_leap:
+    name: standing vertical leap
+    type: float
+    column: standing_vertical_leap
+    desc: Player's standing vertical leap (in inches).
+  max_vertical_leap:
+    name: max vertical leap
+    type: float
+    column: max_vertical_leap
+    desc: Player's maximum vertical leap (in inches).
+  lane_agility_time:
+    name: lane agility time
+    type: float
+    column: lane_agility_time
+    desc: Time taken to complete the lane agility drill (in seconds).
+  modified_lane_agility_time:
+    name: modified lane agility time
+    type: float
+    column: modified_lane_agility_time
+    desc: Time taken to complete the modified lane agility drill (in seconds).
+  three_quarter_sprint:
+    name: three-quarter sprint
+    type: float
+    column: three_quarter_sprint
+    desc: Time taken to complete the three-quarter court sprint (in seconds).
+  bench_press:
+    name: bench press
+    type: float
+    column: bench_press
+    desc: Number of bench press repetitions at 185 pounds.
+  spot_fifteen_corner_left:
+    name: spot fifteen corner left
+    type: string
+    column: spot_fifteen_corner_left
+    desc: Shooting percentage from the left corner at 15 feet.
+  spot_fifteen_break_left:
+    name: spot fifteen break left
+    type: string
+    column: spot_fifteen_break_left
+    desc: Shooting percentage from the left break at 15 feet.
+  spot_fifteen_top_key:
+    name: spot fifteen top key
+    type: string
+    column: spot_fifteen_top_key
+    desc: Shooting percentage from the top key at 15 feet.
+  spot_fifteen_break_right:
+    name: spot fifteen break right
+    type: string
+    column: spot_fifteen_break_right
+    desc: Shooting percentage from the right break at 15 feet.
+  spot_fifteen_corner_right:
+    name: spot fifteen corner right
+    type: string
+    column: spot_fifteen_corner_right
+    desc: Shooting percentage from the right corner at 15 feet.
+  spot_college_corner_left:
+    name: spot college corner left
+    type: string
+    column: spot_college_corner_left
+    desc: Shooting percentage from the left corner at the college three-point line.
+  spot_college_break_left:
+    name: spot college break left
+    type: string
+    column: spot_college_break_left
+    desc: Shooting percentage from the left break at the college three-point line.
+  spot_college_top_key:
+    name: spot college top key
+    type: string
+    column: spot_college_top_key
+    desc: Shooting percentage from the top key at the college three-point line.
+  spot_college_break_right:
+    name: spot college break right
+    type: string
+    column: spot_college_break_right
+    desc: Shooting percentage from the right break at the college three-point line.
+  spot_college_corner_right:
+    name: spot college corner right
+    type: string
+    column: spot_college_corner_right
+    desc: Shooting percentage from the right corner at the college three-point line.
+  spot_nba_corner_left:
+    name: spot nba corner left
+    type: string
+    column: spot_nba_corner_left
+    desc: Shooting percentage from the left corner at the NBA three-point line.
+  spot_nba_break_left:
+    name: spot nba break left
+    type: string
+    column: spot_nba_break_left
+    desc: Shooting percentage from the left break at the NBA three-point line.
+  spot_nba_top_key:
+    name: spot nba top key
+    type: string
+    column: spot_nba_top_key
+    desc: Shooting percentage from the top key at the NBA three-point line.
+  spot_nba_break_right:
+    name: spot nba break right
+    type: string
+    column: spot_nba_break_right
+    desc: Shooting percentage from the right break at the NBA three-point line.
+  spot_nba_corner_right:
+    name: spot nba corner right
+    type: string
+    column: spot_nba_corner_right
+    desc: Shooting percentage from the right corner at the NBA three-point line.
+  off_drib_fifteen_break_left:
+    name: off dribble fifteen break left
+    type: string
+    column: off_drib_fifteen_break_left
+    desc: Shooting percentage off the dribble from the left break at 15 feet.
+  off_drib_fifteen_top_key:
+    name: off dribble fifteen top key
+    type: string
+    column: off_drib_fifteen_top_key
+    desc: Shooting percentage off the dribble from the top key at 15 feet.
+  off_drib_fifteen_break_right:
+    name: off dribble fifteen break right
+    type: string
+    column: off_drib_fifteen_break_right
+    desc: Shooting percentage off the dribble from the right break at 15 feet.
+  off_drib_college_break_left:
+    name: off dribble college break left
+    type: string
+    column: off_drib_college_break_left
+    desc: Shooting percentage off the dribble from the left break at the college three-point line.
+  off_drib_college_top_key:
+    name: off dribble college top key
+    type: string
+    column: off_drib_college_top_key
+    desc: Shooting percentage off the dribble from the top key at the college three-point line.
+  off_drib_college_break_right:
+    name: off dribble college break right
+    type: string
+    column: off_drib_college_break_right
+    desc: Shooting percentage off the dribble from the right break at the college three-point line.
+  on_move_fifteen:
+    name: on move fifteen
+    type: string
+    column: on_move_fifteen
+    desc: Shooting percentage on the move from 15 feet.
+  on_move_college:
+    name: on move college
+    type: string
+    column: on_move_college
+    desc: Shooting percentage on the move from the college three-point line.

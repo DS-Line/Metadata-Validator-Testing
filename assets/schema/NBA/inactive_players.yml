@@ -1,0 +1,56 @@
+subject_area: inactive_players
+table_info:
+  - table: inactive_players
+    joins: []
+  - table: player
+    join:
+      - inactive_players.player_id = player.id
+  - table: team
+    join:
+      - inactive_players.team_id = team.id
+columns:
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  player_id:
+    name: player id
+    type: string
+    column: player_id
+    desc: Unique identifier for the player.
+  first_name:
+    name: first name
+    type: string
+    column: first_name
+    desc: Player's first name.
+  last_name:
+    name: last name
+    type: string
+    column: last_name
+    desc: Player's last name.
+  jersey_num:
+    name: jersey number
+    type: int
+    column: jersey_num
+    desc: Jersey number worn by the player.
+  team_id:
+    name: team id
+    type: string
+    column: team_id
+    desc: Unique identifier for the team the player is associated with.
+  team_city:
+    name: team city
+    type: string
+    column: team_city
+    desc: City where the team is based.
+  team_name:
+    name: team name
+    type: string
+    column: team_name
+    desc: Name of the team.
+  team_abbreviation:
+    name: team abbreviation
+    type: string
+    column: team_abbreviation
+    desc: Short code for the team (e.g., LAL, GSW).

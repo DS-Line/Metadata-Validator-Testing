@@ -1,0 +1,33 @@
+subject_area: team_history
+table_info:
+  - table: team_history
+    joins: []
+  - table: team
+    joins:
+      - team_history.team_id = team.id
+columns:
+  team_id:
+    name: team id
+    type: string
+    column: team_id
+    desc: Unique identifier for the team.
+  city:
+    name: city
+    type: string
+    column: city
+    desc: City where the team was based during a specific period.
+  nickname:
+    name: nickname
+    type: string
+    column: nickname
+    desc: Nickname or mascot of the team during that period.
+  year_founded:
+    name: year founded
+    type: int
+    column: year_founded
+    desc: Year the team was established or moved to the city.
+  year_active_till:
+    name: year active till
+    type: int
+    column: year_active_till
+    desc: Year the team stopped being based in that city.

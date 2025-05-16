@@ -1,0 +1,49 @@
+subject_area: team
+table_info:
+  - table: team
+    joins: []
+  - table: team_details
+    joins:
+      - team.id = team_details.team_id
+  - table: team_history
+    joins:
+      - team.id = team_history.team_id
+  - table: team_info_common
+    joins:
+      - team.id = team_info_common.team_id
+columns:
+  id:
+    name: team id
+    type: string
+    column: id
+    desc: Unique identifier for the team.
+  full_name:
+    name: full name
+    type: string
+    column: full_name
+    desc: Full name of the team.
+  abbreviation:
+    name: abbreviation
+    type: string
+    column: abbreviation
+    desc: Short code for the team (e.g., LAL, GSW).
+  nickname:
+    name: nickname
+    type: string
+    column: nickname
+    desc: Nickname or mascot of the team.
+  city:
+    name: city
+    type: string
+    column: city
+    desc: City where the team is based.
+  state:
+    name: state
+    type: string
+    column: state
+    desc: State where the team is based.
+  year_founded:
+    name: year founded
+    type: float
+    column: year_founded
+    desc: Year the team was founded.

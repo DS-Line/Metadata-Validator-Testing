@@ -1,0 +1,138 @@
+subject_area: basketball
+table_info:
+  - table: team_info_common
+    joins: []
+  - table: team
+    joins:
+      - team_info_common.team_id = team.id
+columns:
+  team_id:
+    name: team id
+    type: string
+    column: team_id
+    desc: Unique identifier for the team.
+  season_year:
+    name: season year
+    type: string
+    column: season_year
+    desc: The season year (e.g., 2022 for the 2022–23 season).
+  team_city:
+    name: team city
+    type: string
+    column: team_city
+    desc: City where the team is based.
+  team_name:
+    name: team name
+    type: string
+    column: team_name
+    desc: Name of the team.
+  team_abbreviation:
+    name: team abbreviation
+    type: string
+    column: team_abbreviation
+    desc: Short code for the team (e.g., LAL, GSW).
+  team_conference:
+    name: team conference
+    type: string
+    column: team_conference
+    desc: Conference the team belongs to (e.g., East, West).
+  team_division:
+    name: team division
+    type: string
+    column: team_division
+    desc: Division the team belongs to (e.g., Southeast, Pacific).
+  team_code:
+    name: team code
+    type: string
+    column: team_code
+    desc: Internal code for the team.
+  team_slug:
+    name: team slug
+    type: string
+    column: team_slug
+    desc: URL-friendly version of the team name.
+  w:
+    name: wins
+    type: int
+    column: w
+    desc: Number of wins in the season.
+  l:
+    name: losses
+    type: int
+    column: l
+    desc: Number of losses in the season.
+  pct:
+    name: win percentage
+    type: float
+    column: pct
+    desc: Win percentage (calculated as wins / (wins + losses)).
+  conf_rank:
+    name: conference rank
+    type: int
+    column: conf_rank
+    desc: Team's rank in their conference.
+  div_rank:
+    name: division rank
+    type: int
+    column: div_rank
+    desc: Team's rank in their division.
+  min_year:
+    name: minimum year
+    type: int
+    column: min_year
+    desc: The earliest year in the team's history.
+  max_year:
+    name: maximum year
+    type: int
+    column: max_year
+    desc: The latest year in the team's history.
+  league_id:
+    name: league id
+    type: string
+    column: league_id
+    desc: Unique identifier for the league (e.g., NBA).
+  season_id:
+    name: season id
+    type: string
+    column: season_id
+    desc: Unique identifier for the season.
+  pts_rank:
+    name: points rank
+    type: int
+    column: pts_rank
+    desc: Team's rank in points per game (PPG) across the league.
+  pts_pg:
+    name: points per game
+    type: float
+    column: pts_pg
+    desc: Team's average points per game.
+  reb_rank:
+    name: rebounds rank
+    type: int
+    column: reb_rank
+    desc: Team's rank in rebounds per game (RPG) across the league.
+  reb_pg:
+    name: rebounds per game
+    type: float
+    column: reb_pg
+    desc: Team's average rebounds per game.
+  ast_rank:
+    name: assists rank
+    type: int
+    column: ast_rank
+    desc: Team's rank in assists per game (APG) across the league.
+  ast_pg:
+    name: assists per game
+    type: float
+    column: ast_pg
+    desc: Team's average assists per game.
+  opp_pts_rank:
+    name: opponent points rank
+    type: int
+    column: opp_pts_rank
+    desc: Team's rank in opponent points per game (defensive ranking).
+  opp_pts_pg:
+    name: opponent points per game
+    type: float
+    column: opp_pts_pg
+    desc: Average points allowed per game by the team.

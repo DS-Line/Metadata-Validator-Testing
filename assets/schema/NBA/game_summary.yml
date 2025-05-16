@@ -1,0 +1,82 @@
+subject_area: game_summary
+table_info:
+  - table: game_summary
+    joins: []
+  - table: team
+    joins:
+      - game_summary.home_team_id = team.id
+      - game_summary.visitor_team_id = team.id
+  - table: game
+    joins:
+      - game_summary.game_id = game.game_id
+columns:
+  game_date_est:
+    name: game date est
+    type: timestamp_ntz
+    column: game_date_est
+    desc: Date of the game in Eastern Standard Time (EST).
+  game_sequence:
+    name: game sequence
+    type: int
+    column: game_sequence
+    desc: Sequence number for the game (used for sorting or ordering).
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  game_status_id:
+    name: game status id
+    type: int
+    column: game_status_id
+    desc: Numeric code representing the status of the game.
+  game_status_string:
+    name: game status string
+    type: string
+    column: game_status_string
+    desc: Text description of the game status.
+  gamecode:
+    name: gamecode
+    type: string
+    column: gamecode
+    desc: Unique code for the game, often combining the date and team abbreviations.
+  home_team_id:
+    name: home team id
+    type: string
+    column: home_team_id
+    desc: Unique identifier for the home team.
+  visitor_team_id:
+    name: visitor team id
+    type: string
+    column: visitor_team_id
+    desc: Unique identifier for the visiting team.
+  season:
+    name: season
+    type: string
+    column: season
+    desc: The season in which the game was played.
+  live_period:
+    name: live period
+    type: int
+    column: live_period
+    desc: The current period (quarter) of the game during live play.
+  live_pc_time:
+    name: live pc time
+    type: string
+    column: live_pc_time
+    desc: The time remaining in the current period during live play.
+  natl_tv_broadcaster_abbreviation:
+    name: national tv broadcaster abbreviation
+    type: string
+    column: natl_tv_broadcaster_abbreviation
+    desc: Abbreviation of the national TV broadcaster airing the game.
+  live_period_time_bcast:
+    name: live period time broadcast
+    type: string
+    column: live_period_time_bcast
+    desc: The period and time remaining as displayed during the broadcast.
+  wh_status:
+    name: wh status
+    type: int
+    column: wh_status
+    desc: A status flag (often used internally).

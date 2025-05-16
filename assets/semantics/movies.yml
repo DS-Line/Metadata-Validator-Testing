@@ -1,0 +1,195 @@
+movies:
+  folder: movies
+  type: measure
+  source:
+    schema.movies:
+      columns:
+        - <all>
+  
+  attributes:
+    name:
+      name: title of the movie
+      synonym:
+        - movie title
+        - film name
+      desc: Title of the movie
+      calculation: "[name]"
+      consideration: Use exact match for filtering.
+      function:
+        - distinct
+      fetch: true
+    rating:
+      name: content rating
+      synonym:
+        - movie rating
+        - film rating
+      desc: Content rating (e.g., R, PG-13)
+      calculation: "[rating]"
+      consideration: Use exact match for filtering.
+      function:
+        - distinct
+      fetch: true
+    genre:
+      name: genre of the movie
+      synonym:
+        - movie genre
+        - film category
+      desc: Genre of the movie
+      calculation: "[genre]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+      fetch: true
+    year:
+      name: production or release year
+      synonym:
+        - release year
+        - movie year
+        - production year
+      desc: Original production/release year in home country
+      calculation: "[year]"
+      consideration: Use range filtering for years.
+      function:
+        - distinct
+      fetch: true
+    released_date:
+      name: released date
+      synonym:
+        - release date
+        - movie release date
+        - film release date
+      desc: release date of a movie
+      calculation: "[released_date]"
+    released_country:
+      name: released country
+      synonym:
+        - release country
+        - movie release country
+        - film release country
+      desc: release country of a movie
+      calculation: "[released_country]"
+      function:
+        - distinct
+      fetch: true
+    country:
+      name: production country
+      synonym:
+        - film country
+        - movie origin
+      desc: Production country (e.g., Denmark, United States)
+      calculation: "[country]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+      fetch: true
+    director:
+      name: director of the movie
+      synonym:
+        - film director
+        - movie director
+      desc: Director of the movie
+      calculation: "[director]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+    writer:
+      name: screenwriter(s)
+      synonym:
+        - film writer
+        - movie writer
+      desc: Screenwriter of the movie
+      calculation: "[writer]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+      fetch: true
+    star:
+      name: lead actor(s)
+      synonym:
+        - film star
+        - movie star
+      desc: Lead actor of the movie
+      calculation: "[star]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+      fetch: true
+    company:
+      name: production company
+      synonym:
+        - film company
+        - movie studio
+      desc: Production company of the movie
+      calculation: "[company]"
+      consideration: Use ILIKE for partial matches.
+      function:
+        - distinct
+      fetch: true
+    runtime:
+      name: duration in minutes
+      synonym:
+        - movie length
+        - film runtime
+      desc: Duration of the movie in minutes
+      calculation: "[runtime]"
+      consideration: Use range filtering for runtime values.
+      function:
+        - distinct
+  
+  metrics:
+    votes:
+      name: number of votes or reviews
+      synonym:
+        - review count
+        - movie votes
+        - number of votes
+      desc: Number of votes/reviews
+      calculation: "[votes]"
+      consideration: Use range filtering for vote counts.
+      function: SUM
+    budget:
+      name: production budget
+      synonym:
+        - film budget
+        - movie budget
+        - total budget
+      desc: Production budget
+      calculation: "[budget]"
+      function: SUM
+    gross:
+      name: box office gross
+      synonym:
+        - movie revenue
+        - film gross
+        - collection
+      desc: Total box office gross of a movie.
+      calculation: "[gross]"
+      function: SUM
+    score:
+      name: average rating
+      synonym:
+        - movie score
+        - film rating score
+      desc: Average rating of a movie out of 10.
+      calculation: "[score]"
+      function: AVG
+    profit:
+      name: profit
+      synonym:
+        - net earnings
+        - box office profit
+        - net collection
+      desc: Profit calculated as the difference between box office gross and
+        production budget.
+      calculation: "[gross] - [budget]"
+      function: SUM
+    profitability:
+      name: profitability
+      synonym:
+        - profit ratio
+        - return on investment
+        - ROI
+        - profit percentage
+      desc: Profitability measures how efficiently a movie generates revenue compared
+        to its production budget.
+      calculation: "[gross] - [budget] / [budget]"

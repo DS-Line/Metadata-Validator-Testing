@@ -1,0 +1,174 @@
+subject_area: common_player_info
+table_info:
+  - table: common_player_info
+    joins: []
+  - table: player
+    joins: 
+      - common_player_info.person_id = player.id
+      - common_player_info.team_id = team.id
+columns:
+  person_id:
+    name: person id
+    type: string
+    column: person_id
+    desc: Unique identifier for the player.
+  first_name:
+    name: first name
+    type: string
+    column: first_name
+    desc: Player's first name.
+  last_name:
+    name: last name
+    type: string
+    column: last_name
+    desc: Player's last name.
+  display_first_last:
+    name: display first last
+    type: string
+    column: display_first_last
+    desc: Full name in "First Last" format.
+  display_last_comma_first:
+    name: display last comma first
+    type: string
+    column: display_last_comma_first
+    desc: Full name in "Last, First" format.
+  display_fi_last:
+    name: display fi last
+    type: string
+    column: display_fi_last
+    desc: Abbreviated name in "F. Last" format.
+  player_slug:
+    name: player slug
+    type: string
+    column: player_slug
+    desc: URL-friendly version of the player's name.
+  birthdate:
+    name: birthdate
+    type: timestamp_ntz
+    column: birthdate
+    desc: Player's date of birth.
+  school:
+    name: school
+    type: string
+    column: school
+    desc: College or university the player attended.
+  country:
+    name: country
+    type: string
+    column: country
+    desc: Player's nationality.
+  last_affiliation:
+    name: last affiliation
+    type: string
+    column: last_affiliation
+    desc: Last team or organization the player was associated with before joining the NBA.
+  height:
+    name: height
+    type: string
+    column: height
+    desc: Player's height in feet-inches format.
+  weight:
+    name: weight
+    type: string
+    column: weight
+    desc: Player's weight in pounds.
+  season_exp:
+    name: season experience
+    type: float
+    column: season_exp
+    desc: Number of seasons the player has played in the NBA.
+  jersey:
+    name: jersey number
+    type: string
+    column: jersey
+    desc: Jersey number worn by the player.
+  position:
+    name: position
+    type: string
+    column: position
+    desc: Player's primary position (e.g., Forward, Center).
+  rosterstatus:
+    name: roster status
+    type: string
+    column: rosterstatus
+    desc: Current roster status (e.g., Active, Inactive).
+  games_played_current_season_flag:
+    name: games played current season flag
+    type: string
+    column: games_played_current_season_flag
+    desc: Indicates if the player has played in the current season (Y/N).
+  team_id:
+    name: team id
+    type: int
+    column: team_id
+    desc: Unique identifier for the team the player is associated with.
+  team_name:
+    name: team name
+    type: string
+    column: team_name
+    desc: Name of the team.
+  team_abbreviation:
+    name: team abbreviation
+    type: string
+    column: team_abbreviation
+    desc: Short code for the team (e.g., LAL, GSW).
+  team_code:
+    name: team code
+    type: string
+    column: team_code
+    desc: Internal team code.
+  team_city:
+    name: team city
+    type: string
+    column: team_city
+    desc: City where the team is based.
+  playercode:
+    name: player code
+    type: string
+    column: playercode
+    desc: Unique identifier for the player in historical data.
+  from_year:
+    name: from year
+    type: float
+    column: from_year
+    desc: First year the player played in the NBA.
+  to_year:
+    name: to year
+    type: float
+    column: to_year
+    desc: Last year the player played in the NBA.
+  dleague_flag:
+    name: d-league flag
+    type: string
+    column: dleague_flag
+    desc: Indicates if the player played in the G League (Y/N).
+  nba_flag:
+    name: nba flag
+    type: string
+    column: nba_flag
+    desc: Indicates if the player played in the NBA (Y/N).
+  games_played_flag:
+    name: games played flag
+    type: string
+    column: games_played_flag
+    desc: Indicates if the player has played in any NBA games (Y/N).
+  draft_year:
+    name: draft year
+    type: string
+    column: draft_year
+    desc: Year the player was drafted.
+  draft_round:
+    name: draft round
+    type: string
+    column: draft_round
+    desc: Round in which the player was drafted.
+  draft_number:
+    name: draft number
+    type: string
+    column: draft_number
+    desc: Overall pick number in the draft.
+  greatest_75_flag:
+    name: greatest 75 flag
+    type: string
+    column: greatest_75_flag
+    desc: Indicates if the player was named one of the NBA's 75 Greatest Players (Y/N).

@@ -1,0 +1,42 @@
+subject_area: player
+table_info:
+  - table: player
+    joins: []
+  - table: common_player_info
+    joins:
+      - player.id = common_player_info.person_id
+  - table: draft_history
+    joins:
+      - player.id = draft_history.person_id
+  - table: draft_combine_stats
+    joins:
+      - player.id = draft_combine_stats.player_id
+  - table: inactive_players
+    joins:
+      - player.id = inactive_players.player_id
+columns:
+  id:
+    name: player id
+    type: string
+    column: id
+    desc: Unique identifier for the player.
+  full_name:
+    name: full name
+    type: string
+    column: full_name
+    desc: Full name of the player.
+  first_name:
+    name: first name
+    type: string
+    column: first_name
+    desc: First name of the player.
+  last_name:
+    name: last name
+    type: string
+    column: last_name
+    desc: Last name of the player.
+  is_active:
+    name: is active
+    type: int
+    column: is_active
+    desc: Indicates if the player is currently active in the NBA (1 = active, 0 = inactive).

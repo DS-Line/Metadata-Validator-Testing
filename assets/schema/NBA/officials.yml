@@ -1,0 +1,30 @@
+subject_area: officials
+table_info:
+  - table: officials
+    joins: []
+columns:
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  official_id:
+    name: official id
+    type: string
+    column: official_id
+    desc: Unique identifier for the official (referee).
+  first_name:
+    name: first name
+    type: string
+    column: first_name
+    desc: First name of the official.
+  last_name:
+    name: last name
+    type: string
+    column: last_name
+    desc: Last name of the official.
+  jersey_num:
+    name: jersey number
+    type: string
+    column: jersey_num
+    desc: Jersey number worn by the official during the game.

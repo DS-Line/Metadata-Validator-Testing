@@ -1,0 +1,198 @@
+subject_area: play_by_play
+table_info:
+  - table: play_by_play
+    joins:
+      - table: game
+        joins:
+          - play_by_play.game_id = game.game_id
+      - table: player
+        joins:
+          - play_by_play.player1_id = player.id
+      - table: player
+        joins:
+          - play_by_play.player2_id = player.id
+      - table: player
+        joins:
+          - play_by_play.player3_id = player.id
+columns:
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  eventnum:
+    name: event number
+    type: int
+    column: eventnum
+    desc: Sequence number of the event within the game.
+  eventmsgtype:
+    name: event message type
+    type: int
+    column: eventmsgtype
+    desc: Type of event (e.g., shot, foul, rebound).
+  eventmsgactiontype:
+    name: event message action type
+    type: int
+    column: eventmsgactiontype
+    desc: Subtype of the event (e.g., type of shot or foul).
+  period:
+    name: period
+    type: int
+    column: period
+    desc: The period (quarter or overtime) in which the event occurred.
+  wctimestring:
+    name: wall clock time string
+    type: string
+    column: wctimestring
+    desc: Wall clock time of the event (e.g., 12:00 PM).
+  pctimestring:
+    name: play clock time string
+    type: string
+    column: pctimestring
+    desc: Game clock time of the event (e.g., 10:23).
+  homedescription:
+    name: home description
+    type: string
+    column: homedescription
+    desc: Description of the event from the home team's perspective.
+  neutraldescription:
+    name: neutral description
+    type: string
+    column: neutraldescription
+    desc: Neutral description of the event.
+  visitordescription:
+    name: visitor description
+    type: string
+    column: visitordescription
+    desc: Description of the event from the visiting team's perspective.
+  score:
+    name: score
+    type: string
+    column: score
+    desc: Current score at the time of the event.
+  scoremargin:
+    name: score margin
+    type: string
+    column: scoremargin
+    desc: Point margin at the time of the event.
+  person1type:
+    name: person 1 type
+    type: float
+    column: person1type
+    desc: Role of the first player involved in the event (e.g., player, team).
+  player1_id:
+    name: player 1 id
+    type: string
+    column: player1_id
+    desc: Unique identifier for the first player involved.
+  player1_name:
+    name: player 1 name
+    type: string
+    column: player1_name
+    desc: Name of the first player involved.
+  player1_team_id:
+    name: player 1 team id
+    type: string
+    column: player1_team_id
+    desc: Unique identifier for the first player's team.
+  player1_team_city:
+    name: player 1 team city
+    type: string
+    column: player1_team_city
+    desc: City of the first player's team.
+  player1_team_nickname:
+    name: player 1 team nickname
+    type: string
+    column: player1_team_nickname
+    desc: Nickname of the first player's team.
+  player1_team_abbreviation:
+    name: player 1 team abbreviation
+    type: string
+    column: player1_team_abbreviation
+    desc: Short code for the first player's team.
+  person2type:
+    name: person 2 type
+    type: float
+    column: person2type
+    desc: Role of the second player involved in the event (e.g., player, team).
+  player2_id:
+    name: player 2 id
+    type: string
+    column: player2_id
+    desc: Unique identifier for the second player involved.
+  player2_name:
+    name: player 2 name
+    type: string
+    column: player2_name
+    desc: Name of the second player involved.
+  player2_team_id:
+    name: player 2 team id
+    type: string
+    column: player2_team_id
+    desc: Unique identifier for the second player's team.
+  player2_team_city:
+    name: player 2 team city
+    type: string
+    column: player2_team_city
+    desc: City of the second player's team.
+  player2_team_nickname:
+    name: player 2 team nickname
+    type: string
+    column: player2_team_nickname
+    desc: Nickname of the second player's team.
+  player2_team_abbreviation:
+    name: player 2 team abbreviation
+    type: string
+    column: player2_team_abbreviation
+    desc: Short code for the second player's team.
+  person3type:
+    name: person 3 type
+    type: float
+    column: person3type
+    desc: Role of the third player involved in the event (e.g., player, team).
+  player3_id:
+    name: player 3 id
+    type: string
+    column: player3_id
+    desc: Unique identifier for the third player involved.
+  player3_name:
+    name: player 3 name
+    type: string
+    column: player3_name
+    desc: Name of the third player involved.
+  player3_team_id:
+    name: player 3 team id
+    type: string
+    column: player3_team_id
+    desc: Unique identifier for the third player's team.
+  player3_team_city:
+    name: player 3 team city
+    type: string
+    column: player3_team_city
+    desc: City of the third player's team.
+  player3_team_nickname:
+    name: player 3 team nickname
+    type: string
+    column: player3_team_nickname
+    desc: Nickname of the third player's team.
+  player3_team_abbreviation:
+    name: player 3 team abbreviation
+    type: string
+    column: player3_team_abbreviation
+    desc: Short code for the third player's team.
+  video_available_flag:
+    name: video available flag
+    type: string
+    column: video_available_flag
+    desc: Indicates if video footage is available for the event (Y/N).
+  scoring_player_id:
+    name: Scoring player id
+    type: varchar
+    column: scoring_player_id
+    desc: Unique identifier for the player who scored.
+  score_by_scoring_player:
+    name: Score by scoring player
+    type: number
+    column: score_by_scoring_player
+    desc: Number scored by the player
+  

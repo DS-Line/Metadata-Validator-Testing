@@ -1,0 +1,507 @@
+generateSchema:
+  folder: generateSchema
+  type: dimension
+  source:
+    schema.generateSchema:
+      columns:
+        - <all>
+  attributes:
+    assetIdentifier:
+      name: Asset Identifier
+      synonym:
+        - Asset ID
+        - Asset Tag
+        - Unique Asset ID
+      description: Unique identifier for the asset.
+      include:
+        - ASSET_TAG
+    assetName:
+      name: Asset Name
+      synonym:
+        - Name of Asset
+        - Asset Title
+        - Asset Designation
+      description: Name of the asset.
+      include:
+        - ASSET_NAME
+    assetSerialNumber:
+      name: Asset Serial Number
+      synonym:
+        - Serial Number
+        - Asset Serial
+        - Serial ID
+      description: Serial number of the asset.
+      include:
+        - ASSET_SERIAL
+    modelDetails:
+      name: Model Details
+      synonym:
+        - Model Information
+        - Asset Model
+        - Model Name and Number
+      description: Name and number of the model associated with the asset.
+      filter_considiration: Use   ilike '%[MODEL_NAME]%' while applying filter
+      include:
+        - MODEL_NAME
+        - MODEL_NUMBER
+    manufacturerDetails:
+      name: Manufacturer Details
+      synonym:
+        - Manufacturer Information
+        - Asset Manufacturer
+        - Maker Name
+      description: Name of the manufacturer of the asset.
+      filter_considiration: Use   ilike '%[MANUFACTURER_NAME]%' while applying filter
+      include:
+        - MANUFACTURER_NAME
+    assetCategory:
+      name: Asset Category
+      synonym:
+        - Category Name
+        - Category
+        - Asset Type
+        - Asset Classification
+      description: Category name of the asset.
+      filter_considiration: Use   ilike '%[CATEGORY_NAME]%' while applying filter
+      include:
+        - CATEGORY_NAME
+    categoryType:
+      name: Category Type
+      synonym:
+        - Type of Category
+        - Asset Category Type
+        - Category Classification
+      description: Category type of the asset.
+      filter_considiration: Use   ilike '%[CATEGORY_TYPE]%' while applying filter
+      include:
+        - CATEGORY_TYPE
+    assetStatus:
+      name: Asset Status
+      synonym:
+        - Status
+        - Current Status
+        - Status of Asset
+        - Asset Condition
+      description: Name of the asset status.
+      include:
+        - STATUS_NAME
+    asset:
+      name: Asset
+      description: information about an asset
+      include:
+        - ASSET_NAME
+        - ASSET_TAG
+        - ASSET_SERIAL
+        - MODEL_NAME
+        - CATEGORY_NAME
+        - STATUS_NAME
+    deployableStatus:
+      name: Deployable Status
+      synonym:
+        - Deployable Indicator
+        - Ready to use indicator
+        - Ready to use status
+        - Is Deployable
+        - Deployment Status
+      description: Indicates whether the asset is deployable.
+      include:
+        - STATUS_DEPLOYABLE
+    pendingStatus:
+      name: Pending Status
+      synonym:
+        - Pending Indicator
+        - Is Pending
+        - Pending Asset Status
+      description: Indicates whether the asset is pending.
+      include:
+        - STATUS_PENDING
+    archivedStatus:
+      name: Archived Status
+      synonym:
+        - Archive Indicator
+        - Is Archived
+        - Archived Asset Status
+      description: Indicates whether the asset is archived.
+      cosidiration: Don't use this filed to calculate anything related to Archived Status, use LOWER(STATUS_NAME) = 'archived' instead.
+      include:
+        - STATUS_ARCHIVED
+    statusNotes:
+      name: Status Notes
+      synonym:
+        - Additional Status Notes
+        - Status Comments
+        - Asset Status Remarks
+      description: Additional notes on the asset status.
+      include:
+        - STATUS_NOTES
+    assignedUser:
+      name: Assigned User
+      synonym:
+        - User Assigned
+        - User Responsible
+        - Asset Owner
+      description: ID of the user to whom the asset is assigned.
+      include:
+        - ASSET_ASSIGNED_TO
+    userId:
+      name: User ID
+      synonym:
+        - Assigned User ID
+        - User Identifier
+        - User Reference ID
+      description: User ID associated with the asset.
+      include:
+        - ASSET_USER_ID
+    userEmail:
+      name: User Email
+      synonym:
+        - Email Address
+        - User Contact Email
+        - Assigned User Email
+      description: Email address of the assigned user.
+      output_considiration: List distinct user whose USER_EMAIL is not null 
+      include:
+        - USER_EMAIL
+    userFullName:
+      name: User Full Name
+      synonym:
+        - Full Name of User
+        - Full Name
+        - User's Complete Name
+        - Assigned User Full Name
+      description: Full name of the assigned user.
+      filter_considiration: Use   ilike '%[FULL_NAME]%' while applying filter
+      output_considiration: List distinct user whose FULL_NAME is not null 
+      include:
+        - FULL_NAME
+    username:
+      name: Username
+      synonym:
+        - User Login Name
+        - User Account Name
+        - Assigned User Username
+      description: Username of the assigned user.
+      filter_considiration: Use   ilike '%[USERNAME]%' while applying filter
+      output_considiration: List distinct user whose USERNAME is not null 
+      include:
+        - USERNAME
+    user:
+      name: User
+      synonym:
+        - People
+        - User information
+      description: User information of the assigned user
+      filter_considiration: Use   ilike '%[USERNAME]%' while applying filter
+      output_considiration: List distinct user whose USERNAME is not null 
+      include:
+        - FULL_NAME
+        - USERNAME
+        - USER_EMAIL
+    supplierDetails:
+      name: Supplier Details
+      synonym:
+        - Supplier Information
+        - Supplier Name
+        - Asset Supplier
+      description: Name of the supplier who provided the asset.
+      include:
+        - SUPPLIER_NAME
+    companyDetails:
+      name: Company Details
+      synonym:
+        - Company Information
+        - Asset Owner Company
+        - Company Name
+      description: Name of the company owning the asset.
+      include:
+        - COMPANY_NAME
+    purchaseDate:
+      name: Purchase Date
+      synonym:
+        - Date of Purchase
+        - Asset Acquisition Date
+        - Purchase Timestamp
+      description: Purchase date of the asset.
+      include:
+        - ASSET_PURCHASE_DATE
+    endOfLifeDate:
+      name: End of Life Date
+      synonym:
+        - EOL Date
+        - Asset Expiry Date
+        - End of Service Date
+      description: End of life date for the asset.
+      include:
+        - ASSET_EOL_DATE
+    explicitEOL:
+      name: Explicit EOL
+      synonym:
+        - EOL Explicit Indicator
+        - Explicit End of Life
+        - EOL Status
+      description: Indicates if EOL is explicitly set.
+      include:
+        - ASSET_EOL_EXPLICIT
+    lastAuditDate:
+      name: Last Audit Date
+      synonym:
+        - Date of Last Audit
+        - Last Inspection Date
+        - Last Review Date
+      description: Date of the last audit for the asset.
+      include:
+        - ASSET_LAST_AUDIT_DATE
+    nextAuditDate:
+      name: Next Audit Date
+      synonym:
+        - Scheduled Audit Date
+        - Upcoming Audit Date
+        - Next Inspection Date
+      description: Date for the next scheduled audit.
+      include:
+        - ASSET_NEXT_AUDIT_DATE
+    physicalAsset:
+      name: Physical Asset Indicator
+      synonym:
+        - Is Physical
+        - Physical Asset Status
+        - Physical Indicator
+      description: Indicates if the asset is physical.
+      include:
+        - ASSET_PHYSICAL
+    byodStatus:
+      name: BYOD Status
+      synonym:
+        - Bring Your Own Device Indicator
+        - BYOD Indicator
+        - BYOD Asset Status
+      description: Indicates if the asset is BYOD (Bring Your Own Device).
+      include:
+        - ASSET_BYOD
+    cpuSpecification:
+      name: CPU Specification
+      synonym:
+        - CPU Details
+        - Processor Information
+        - CPU Model
+      description: CPU specification of the asset.
+      include:
+        - SNIPEIT_CPU_7
+    ramSize:
+      name: RAM Size
+      synonym:
+        - Memory Size
+        - RAM Specification
+        - RAM Capacity
+      description: RAM size of the asset.
+      include:
+        - SNIPEIT_RAM_8
+    diskType:
+      name: Disk Type
+      synonym:
+        - Type of Disk
+        - Storage Type
+        - Disk Specification
+      description: Disk type of the asset.
+      include:
+        - SNIPEIT_DISK_TYPE_9
+    diskSize:
+      name: Disk Size
+      synonym:
+        - Storage Size
+        - Disk Capacity
+        - Disk Volume
+      description: Disk size of the asset.
+      include:
+        - SNIPEIT_DISK_SIZE_10
+    displaySize:
+      name: Display Size
+      synonym:
+        - Screen Size
+        - Monitor Size
+        - Display Dimension
+      description: Display size of the asset.
+      include:
+        - SNIPEIT_DISPLAY_SIZE_11
+    resolution:
+      name: Resolution
+      synonym:
+        - Display Resolution
+        - Screen Resolution
+        - Image Clarity
+      description: Resolution of the asset.
+      include:
+        - SNIPEIT_RESOLUTION_13
+    monitorType:
+      name: Monitor Type
+      synonym:
+        - Type of Monitor
+        - Display Type
+        - Monitor Specification
+      description: Monitor type of the asset.
+      include:
+        - SNIPEIT_MONITOR_TYPE_14
+    repairCount:
+      name: Repair Count
+      synonym:
+        - Number of Repairs
+        - Repair History
+        - Total Repairs
+      description: Number of repairs done on the asset.
+      include:
+        - SNIPEIT_REPAIR_COUNT_15
+    checkinCounter:
+      name: Check-in Counter
+      synonym:
+        - Asset Check-in Count
+        - Check-in History
+        - Total Check-ins
+      description: Counter for asset check-ins.
+      include:
+        - ASSET_CHECKIN_COUNTER
+    checkoutCounter:
+      name: Check-out Counter
+      synonym:
+        - Asset Check-out Count
+        - Check-out History
+        - Total Check-outs
+      description: Counter for asset check-outs.
+      include:
+        - ASSET_CHECKOUT_COUNTER
+    requestsCounter:
+      name: Requests Counter
+      synonym:
+        - Asset Requests Count
+        - Total Requests
+        - Request History
+      description: Counter for asset requests.
+      include:
+        - ASSET_REQUESTS_COUNTER
+    assetComments:
+      name: Asset Comments
+      synonym:
+        - Additional Notes
+        - Asset Remarks
+        - Comments on Asset
+      description: Additional notes or comments related to the asset.
+      include:
+        - ASSET_NOTES
+  metrics:
+    total_assets:
+      name: Total Assets
+      synonym:
+        - Asset Count
+        - Total Inventory
+        - Total Number of Assets
+      description: Total number of assets recorded in the system.
+      output_considiration: Use calulation COUNT(CASE WHEN STATUS_DEPLOYABLE = 1 or STATUS_PENDING = 1 THEN ASSET_TAG) when user asking only for count, with other metrics or as a summary.If count is asking with additional attribute then use COUNT(ASSET_TAG) calculation.
+      granularity:
+        - item
+    total_number_of_user:
+      name: Total Number of User
+      synonym:
+        - Total user
+        - Total people
+        - People count
+        - User count
+      description: Total number of user recorded in the system
+      calculation: COUNT(DISTINCT ASSET_ASSIGNED_TO)
+    deployable_assets:
+      name: Deployable Assets
+      synonym:
+        - Active Assets
+        - Available Assets
+      description: Count of assets that are currently deployable.
+      calculation: COUNT(CASE WHEN STATUS_DEPLOYABLE = 1 THEN ASSET_TAG END)
+      granularity:
+        - item
+    total_deployed_assets:
+      name: Total Number of Deployed Assets
+      description: Count of assets that are currently deployed.
+      calculation: COUNT(CASE WHEN LOWER(STATUS_NAME) LIKE '%deployed%'  THEN ASSET_TAG END)
+      granularity:
+        - item
+    list_of_deployed_assets:
+      name: List of deployed assets
+      synonym:
+        - deployed assets
+      description: List of deployed assets
+      filter:
+        - WHEN LOWER(STATUS_NAME) LIKE '%deployed%'
+      include:
+        - asset
+    pending_assets:
+      name: Pending Assets
+      synonym:
+        - Assets in Progress
+        - Assets Awaiting Action
+      description: Count of assets that are currently pending.
+      calculation: COUNT(CASE WHEN STATUS_PENDING = 1 THEN ASSET_TAG END)
+      granularity:
+        - item
+    archived_assets:
+      name: Archived Assets
+      synonym:
+        - Retired Assets
+        - Historical Assets
+      description: Count of assets that have been archived.
+      calculation: COUNT(CASE  WHEN STATUS_ARCHIVED= 1 THEN ASSET_TAG END)
+      granularity:
+        - item
+    assets_by_category:
+      name: Assets by Category
+      synonym:
+        - Category Distribution
+        - Asset Categorization
+      description: Count of assets grouped by their category.
+      calculation: COUNT(ASSET_TAG) GROUP BY CATEGORY_NAME
+      granularity:
+        - category
+    assets_by_manufacturer:
+      name: Assets by Manufacturer
+      synonym:
+        - Manufacturer Distribution
+        - Asset Manufacturer Count
+      description: Count of assets grouped by their manufacturer.
+      calculation: COUNT(ASSET_TAG) GROUP BY MANUFACTURER_NAME
+      granularity:
+        - manufacturer
+    average_repair_count:
+      name: Average Repair Count
+      synonym:
+        - Average Repairs
+        - Repair Frequency
+      description: Average number of repairs done on assets.
+      calculation: AVG(SNIPEIT_REPAIR_COUNT_15)
+      granularity:
+        - item
+    assets_due_for_audit:
+      name: Assets Due for Audit
+      synonym:
+        - Audit Pending Assets
+        - Assets Needing Review
+      description: Count of assets that are due for their next audit.
+      calculation: COUNT(CASE WHEN ASSET_NEXT_AUDIT_DATE <= CURRENT_DATE THEN ASSET_TAG
+        END)
+      granularity:
+        - item
+    assets_with_notes:
+      name: Assets with Notes
+      synonym:
+        - Noted Assets
+        - Assets with Comments
+      description: Count of assets that have additional notes or comments.
+      calculation: COUNT(CASE WHEN ASSET_NOTES IS NOT NULL AND ASSET_NOTES != '' THEN
+        ASSET_TAG END)
+      granularity:
+        - item
+    summary:
+      name: summary
+      synonym:
+        - overall summary
+        - overview
+      description: Provides the summary of the assest
+      include:
+        - total_assets
+        - total_number_of_user
+        - archived_assets

@@ -1,0 +1,289 @@
+GeneratedSchema:
+  folder: GeneratedSchema
+  type: dimension
+  source:
+    schema.GeneratedSchema:
+      columns:
+        - <all>
+  attributes:
+    asset_identifier:
+      name: Asset ID
+      synonym:
+        - Asset Identifier
+        - Asset Key
+        - ID
+      description: Unique identifier for the asset.
+      include:
+        - ASSET_ID
+    asset_tag:
+      name: Asset Tag
+      synonym:
+        - Tag
+        - Unique Asset Tag
+      description: Unique identifier for the asset.
+      include:
+        - ASSET_TAG
+    asset_name:
+      name: Asset Name
+      synonym:
+        - Name of Asset
+        - Asset Title
+      description: Name of the asset.
+      include:
+        - ASSET_NAME
+    asset_serial_number:
+      name: Asset Serial Number
+      synonym:
+        - Serial Number
+        - Asset Serial
+      description: Serial number of the asset.
+      include:
+        - ASSET_SERIAL
+    model_details:
+      name: Model Details
+      synonym:
+        - Model Information
+        - Asset Model
+      description: Name and number of the model associated with the asset.
+      include:
+        - MODEL_NAME
+        - MODEL_NUMBER
+    manufacturer_details:
+      name: Manufacturer Details
+      synonym:
+        - Manufacturer
+        - Asset Maker
+      description: Name of the manufacturer of the asset.
+      include:
+        - MANUFACTURER_NAME
+    asset_category:
+      name: Asset Category
+      synonym:
+        - Category
+        - Asset Type
+      description: Category name and type of the asset.
+      include:
+        - CATEGORY_NAME
+        - CATEGORY_TYPE
+    asset_status:
+      name: Asset Status
+      synonym:
+        - Status
+        - Current State
+      description: Current status of the asset including deployable, pending, and archived
+        states.
+      include:
+        - STATUS_NAME
+        - STATUS_DEPLOYABLE
+        - STATUS_PENDING
+        - STATUS_ARCHIVED
+        - STATUS_NOTES
+    asset_assignment:
+      name: Asset Assignment
+      synonym:
+        - Assigned To
+        - User Assignment
+      description: ID of the user to whom the asset is assigned.
+      include:
+        - ASSET_ASSIGNED_TO
+    user_details:
+      name: User Details
+      synonym:
+        - User Information
+        - Assigned User
+      description: Information about the user associated with the asset.
+      include:
+        - ASSET_USER_ID
+        - USER_EMAIL
+        - FULL_NAME
+        - USERNAME
+    supplier_information:
+      name: Supplier Information
+      synonym:
+        - Supplier
+        - Asset Provider
+      description: Details about the supplier who provided the asset.
+      include:
+        - SUPPLIER_ID
+        - SUPPLIER_NAME
+    company_information:
+      name: Company Information
+      synonym:
+        - Company
+        - Asset Owner
+      description: Details about the company owning the asset.
+      include:
+        - COMPANY_ID
+        - COMPANY_NAME
+    asset_purchase_date:
+      name: Asset Purchase Date
+      synonym:
+        - Purchase Date
+        - Acquisition Date
+      description: Date when the asset was purchased.
+      include:
+        - ASSET_PURCHASE_DATE
+    asset_eol_date:
+      name: Asset End of Life Date
+      synonym:
+        - EOL Date
+        - End of Life
+      description: End of life date for the asset.
+      include:
+        - ASSET_EOL_DATE
+    asset_last_audit_date:
+      name: Asset Last Audit Date
+      synonym:
+        - Last Audit
+        - Last Review Date
+      description: Date of the last audit for the asset.
+      include:
+        - ASSET_LAST_AUDIT_DATE
+    asset_next_audit_date:
+      name: Asset Next Audit Date
+      synonym:
+        - Next Audit
+        - Upcoming Review Date
+      description: Date for the next scheduled audit.
+      include:
+        - ASSET_NEXT_AUDIT_DATE
+    asset_physical_status:
+      name: Asset Physical Status
+      synonym:
+        - Physical Asset
+        - Physical Indicator
+      description: Indicates if the asset is physical.
+      include:
+        - ASSET_PHYSICAL
+    asset_byod_status:
+      name: Asset BYOD Status
+      synonym:
+        - BYOD Indicator
+        - Bring Your Own Device
+      description: Indicates if the asset is BYOD (Bring Your Own Device).
+      include:
+        - ASSET_BYOD
+    asset_repair_count:
+      name: Asset Repair Count
+      synonym:
+        - Repair History
+        - Number of Repairs
+      description: Number of repairs done on the asset.
+      include:
+        - SNIPEIT_REPAIR_COUNT_15
+    asset_checkin_counter:
+      name: Asset Check-in Counter
+      synonym:
+        - Check-in Count
+        - Number of Check-ins
+      description: Counter for asset check-ins.
+      include:
+        - ASSET_CHECKIN_COUNTER
+    asset_checkout_counter:
+      name: Asset Check-out Counter
+      synonym:
+        - Check-out Count
+        - Number of Check-outs
+      description: Counter for asset check-outs.
+      include:
+        - ASSET_CHECKOUT_COUNTER
+    asset_requests_counter:
+      name: Asset Requests Counter
+      synonym:
+        - Request Count
+        - Number of Requests
+      description: Counter for asset requests.
+      include:
+        - ASSET_REQUESTS_COUNTER
+    asset_notes:
+      name: Asset Notes
+      synonym:
+        - Additional Notes
+        - Comments
+      description: Additional notes or comments related to the asset.
+      include:
+        - ASSET_NOTES
+  metrics:
+    total_assets:
+      name: Total Assets
+      synonym:
+        - Asset Count
+        - Number of Assets
+      description: Total number of assets recorded in the system.
+      calculation: COUNT(ASSET_ID)
+      granularity:
+        - item
+    deployable_assets:
+      name: Deployable Assets
+      synonym:
+        - Deployable Asset Count
+        - Number of Deployable Assets
+      description: Count of assets that are currently deployable.
+      calculation: COUNT(CASE WHEN STATUS_DEPLOYABLE = 1 THEN ASSET_ID END)
+      granularity:
+        - item
+    pending_assets:
+      name: Pending Assets
+      synonym:
+        - Pending Asset Count
+        - Number of Pending Assets
+      description: Count of assets that are currently pending.
+      calculation: COUNT(CASE WHEN STATUS_PENDING = 1 THEN ASSET_ID END)
+      granularity:
+        - item
+    archived_assets:
+      name: Archived Assets
+      synonym:
+        - Archived Asset Count
+        - Number of Archived Assets
+      description: Count of assets that have been archived.
+      calculation: COUNT(CASE WHEN STATUS_ARCHIVED = 1 THEN ASSET_ID END)
+      granularity:
+        - item
+    assets_assigned_to_users:
+      name: Assets Assigned to Users
+      synonym:
+        - Assigned Asset Count
+        - Number of Assigned Assets
+      description: Count of assets that are currently assigned to users.
+      calculation: COUNT(ASSET_ASSIGNED_TO)
+      granularity:
+        - item
+    assets_by_category:
+      name: Assets by Category
+      synonym:
+        - Category Asset Count
+        - Number of Assets per Category
+      description: Count of assets grouped by their category.
+      calculation: COUNT(ASSET_ID) GROUP BY CATEGORY_NAME
+      granularity:
+        - item
+    average_repair_count:
+      name: Average Repair Count
+      synonym:
+        - Average Repairs per Asset
+        - Mean Repair Count
+      description: Average number of repairs done on assets.
+      calculation: AVG(SNIPEIT_REPAIR_COUNT_15)
+      granularity:
+        - item
+    assets_due_for_audit:
+      name: Assets Due for Audit
+      synonym:
+        - Audit Due Asset Count
+        - Number of Assets Due for Audit
+      description: Count of assets that are due for the next audit.
+      calculation: COUNT(CASE WHEN ASSET_NEXT_AUDIT_DATE <= CURRENT_DATE THEN ASSET_ID
+        END)
+      granularity:
+        - item
+    assets_with_explicit_EOL:
+      name: Assets with Explicit EOL
+      synonym:
+        - Explicit EOL Asset Count
+        - Number of Assets with Explicit End of Life
+      description: Count of assets that have an explicitly set end of life date.
+      calculation: COUNT(CASE WHEN ASSET_EOL_EXPLICIT = 1 THEN ASSET_ID END)
+      granularity:
+        - item
+  

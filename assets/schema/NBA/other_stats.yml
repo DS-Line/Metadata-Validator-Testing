@@ -1,0 +1,142 @@
+subject_area: other_stats
+table_info:
+  - table: other_stats
+    joins: []
+  - table: game
+    joins:
+      - other_stats.game_id = game.game_id
+  - table: team
+    joins:
+      - other_stats.team_id_home = team.id
+      - other_stats.team_id_away = team.id
+columns:
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  league_id:
+    name: league id
+    type: string
+    column: league_id
+    desc: Unique identifier for the league (e.g., NBA).
+  team_id_home:
+    name: home team id
+    type: string
+    column: team_id_home
+    desc: Unique identifier for the home team.
+  team_abbreviation_home:
+    name: home team abbreviation
+    type: string
+    column: team_abbreviation_home
+    desc: Short code for the home team.
+  team_city_home:
+    name: home team city
+    type: string
+    column: team_city_home
+    desc: City where the home team is based.
+  pts_paint_home:
+    name: home points in the paint
+    type: int
+    column: pts_paint_home
+    desc: Points scored by the home team in the paint.
+  pts_2nd_chance_home:
+    name: home second chance points
+    type: int
+    column: pts_2nd_chance_home
+    desc: Second-chance points scored by the home team.
+  pts_fb_home:
+    name: home fast break points
+    type: int
+    column: pts_fb_home
+    desc: Fast-break points scored by the home team.
+  largest_lead_home:
+    name: home largest lead
+    type: int
+    column: largest_lead_home
+    desc: Largest lead by the home team during the game (in points).
+  lead_changes:
+    name: lead changes
+    type: int
+    column: lead_changes
+    desc: Number of times the lead changed during the game.
+  times_tied:
+    name: times tied
+    type: int
+    column: times_tied
+    desc: Number of times the score was tied during the game.
+  team_turnovers_home:
+    name: home team turnovers
+    type: int
+    column: team_turnovers_home
+    desc: Turnovers committed by the home team.
+  total_turnovers_home:
+    name: home total turnovers
+    type: int
+    column: total_turnovers_home
+    desc: Total turnovers involving the home team.
+  team_rebounds_home:
+    name: home team rebounds
+    type: int
+    column: team_rebounds_home
+    desc: Team rebounds by the home team (e.g., off missed free throws).
+  pts_off_to_home:
+    name: home points off turnovers
+    type: int
+    column: pts_off_to_home
+    desc: Points scored by the home team off turnovers.
+  team_id_away:
+    name: away team id
+    type: string
+    column: team_id_away
+    desc: Unique identifier for the away team.
+  team_abbreviation_away:
+    name: away team abbreviation
+    type: string
+    column: team_abbreviation_away
+    desc: Short code for the away team.
+  team_city_away:
+    name: away team city
+    type: string
+    column: team_city_away
+    desc: City where the away team is based.
+  pts_paint_away:
+    name: away points in the paint
+    type: int
+    column: pts_paint_away
+    desc: Points scored by the away team in the paint.
+  pts_2nd_chance_away:
+    name: away second chance points
+    type: int
+    column: pts_2nd_chance_away
+    desc: Second-chance points scored by the away team.
+  pts_fb_away:
+    name: away fast break points
+    type: int
+    column: pts_fb_away
+    desc: Fast-break points scored by the away team.
+  largest_lead_away:
+    name: away largest lead
+    type: int
+    column: largest_lead_away
+    desc: Largest lead by the away team during the game (in points).
+  team_turnovers_away:
+    name: away team turnovers
+    type: int
+    column: team_turnovers_away
+    desc: Turnovers committed by the away team.
+  total_turnovers_away:
+    name: away total turnovers
+    type: int
+    column: total_turnovers_away
+    desc: Total turnovers involving the away team.
+  team_rebounds_away:
+    name: away team rebounds
+    type: int
+    column: team_rebounds_away
+    desc: Team rebounds by the away team (e.g., off missed free throws).
+  pts_off_to_away:
+    name: away points off turnovers
+    type: int
+    column: pts_off_to_away
+    desc: Points scored by the away team off turnovers.

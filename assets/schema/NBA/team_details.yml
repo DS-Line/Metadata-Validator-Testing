@@ -1,0 +1,78 @@
+subject_area: team_details
+table_info:
+- table: team_details
+  joins: []
+- table: team
+  joins:
+  - team_details.team_id = team.id
+columns:
+  team_id:
+    name: team id
+    type: string
+    column: team_id
+    desc: Unique identifier for the team.
+  abbreviation:
+    name: abbreviation
+    type: string
+    column: abbreviation
+    desc: Short code for the team (e.g., LAL, GSW).
+  nickname:
+    name: nickname
+    type: string
+    column: nickname
+    desc: Nickname or mascot of the team.
+  yearfounded:
+    name: year founded
+    type: float
+    column: yearfounded
+    desc: Year the team was founded.
+  city:
+    name: city
+    type: string
+    column: city
+    desc: City where the team is based.
+  arena:
+    name: arena
+    type: string
+    column: arena
+    desc: Name of the team's home arena.
+  arenacapacity:
+    name: arena capacity
+    type: float
+    column: arenacapacity
+    desc: Seating capacity of the team's home arena.
+  owner:
+    name: owner
+    type: string
+    column: owner
+    desc: Name of the team's owner.
+  generalmanager:
+    name: general manager
+    type: string
+    column: generalmanager
+    desc: Name of the team's general manager.
+  headcoach:
+    name: head coach
+    type: string
+    column: headcoach
+    desc: Name of the team's head coach.
+  dleagueaffiliation:
+    name: g league affiliation
+    type: string
+    column: dleagueaffiliation
+    desc: Name of the team's G League (formerly D-League) affiliate.
+  facebook:
+    name: facebook
+    type: string
+    column: facebook
+    desc: Link to the team's official Facebook page.
+  instagram:
+    name: instagram
+    type: string
+    column: instagram
+    desc: Link to the team's official Instagram page.
+  twitter:
+    name: twitter
+    type: string
+    column: twitter
+    desc: Link to the team's official Twitter page.

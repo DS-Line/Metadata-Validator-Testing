@@ -1,0 +1,300 @@
+GeneratedSchema:
+  subject_area: Asset Management
+  table_info:
+    - table: INFRA_ASSET_DETAILS
+      joins: []
+  columns:
+    ASSET_ID:
+      name: Asset ID
+      type: NUMBER
+      column: ASSET_ID
+      desc: Asset ID
+      primary_key: false
+      foreign_key: false
+    ASSET_TAG:
+      name: Asset Tag
+      type: VARCHAR
+      column: ASSET_TAG
+      desc: Unique identifier for the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_NAME:
+      name: Asset Name
+      type: VARCHAR
+      column: ASSET_NAME
+      desc: Name of the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_SERIAL:
+      name: Asset Serial
+      type: VARCHAR
+      column: ASSET_SERIAL
+      desc: Serial number of the asset
+      primary_key: false
+      foreign_key: false
+    MODEL_NAME:
+      name: Model Name
+      type: VARCHAR
+      column: MODEL_NAME
+      desc: Name of the model associated with the asset
+      primary_key: false
+      foreign_key: false
+    MODEL_NUMBER:
+      name: Model Number
+      type: VARCHAR
+      column: MODEL_NUMBER
+      desc: Model number of the asset
+      primary_key: false
+      foreign_key: false
+    MANUFACTURER_NAME:
+      name: Manufacturer Name
+      type: VARCHAR
+      column: MANUFACTURER_NAME
+      desc: Name of the manufacturer of the asset
+      primary_key: false
+      foreign_key: false
+    CATEGORY_NAME:
+      name: Category Name
+      type: VARCHAR
+      column: CATEGORY_NAME
+      desc: Category name of the asset
+      primary_key: false
+      foreign_key: false
+    CATEGORY_TYPE:
+      name: Category Type
+      type: VARCHAR
+      column: CATEGORY_TYPE
+      desc: Category type of the asset
+      primary_key: false
+      foreign_key: false
+    STATUS_NAME:
+      name: Status Name
+      type: VARCHAR
+      column: STATUS_NAME
+      desc: Name of the asset status
+      primary_key: false
+      foreign_key: false
+    STATUS_DEPLOYABLE:
+      name: Status Deployable
+      type: NUMBER
+      column: STATUS_DEPLOYABLE
+      desc: Indicates whether the asset is deployable
+      primary_key: false
+      foreign_key: false
+    STATUS_PENDING:
+      name: Status Pending
+      type: NUMBER
+      column: STATUS_PENDING
+      desc: Indicates whether the asset is pending
+      primary_key: false
+      foreign_key: false
+    STATUS_ARCHIVED:
+      name: Status Archived
+      type: NUMBER
+      column: STATUS_ARCHIVED
+      desc: Indicates whether the asset is archived
+      primary_key: false
+      foreign_key: false
+    STATUS_NOTES:
+      name: Status Notes
+      type: VARCHAR
+      column: STATUS_NOTES
+      desc: Additional notes on the asset status
+      primary_key: false
+      foreign_key: false
+    ASSET_ASSIGNED_TO:
+      name: Asset Assigned To
+      type: VARCHAR
+      column: ASSET_ASSIGNED_TO
+      desc: ID of the user to whom the asset is assigned
+      primary_key: false
+      foreign_key: true
+    ASSET_USER_ID:
+      name: Asset User ID
+      type: VARCHAR
+      column: ASSET_USER_ID
+      desc: User ID associated with the asset
+      primary_key: false
+      foreign_key: true
+    USER_EMAIL:
+      name: User Email
+      type: VARCHAR
+      column: USER_EMAIL
+      desc: Email address of the assigned user
+      primary_key: false
+      foreign_key: false
+    FULL_NAME:
+      name: Full Name
+      type: VARCHAR
+      column: FULL_NAME
+      desc: Full name of the assigned user
+      primary_key: false
+      foreign_key: false
+    USERNAME:
+      name: Username
+      type: VARCHAR
+      column: USERNAME
+      desc: Username of the assigned user
+      primary_key: false
+      foreign_key: false
+    SUPPLIER_ID:
+      name: Supplier ID
+      type: VARCHAR
+      column: SUPPLIER_ID
+      desc: ID of the supplier who provided the asset
+      primary_key: false
+      foreign_key: true
+    SUPPLIER_NAME:
+      name: Supplier Name
+      type: VARCHAR
+      column: SUPPLIER_NAME
+      desc: Name of the supplier
+      primary_key: false
+      foreign_key: false
+    COMPANY_ID:
+      name: Company ID
+      type: VARCHAR
+      column: COMPANY_ID
+      desc: ID of the company owning the asset
+      primary_key: false
+      foreign_key: true
+    COMPANY_NAME:
+      name: Company Name
+      type: VARCHAR
+      column: COMPANY_NAME
+      desc: Name of the company
+      primary_key: false
+      foreign_key: false
+    ASSET_PURCHASE_DATE:
+      name: Asset Purchase Date
+      type: DATE
+      column: ASSET_PURCHASE_DATE
+      desc: Purchase date of the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_EOL_DATE:
+      name: Asset EOL Date
+      type: DATE
+      column: ASSET_EOL_DATE
+      desc: End of life date for the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_EOL_EXPLICIT:
+      name: Asset EOL Explicit
+      type: NUMBER
+      column: ASSET_EOL_EXPLICIT
+      desc: Indicates if EOL is explicitly set
+      primary_key: false
+      foreign_key: false
+    ASSET_LAST_AUDIT_DATE:
+      name: Asset Last Audit Date
+      type: DATE
+      column: ASSET_LAST_AUDIT_DATE
+      desc: Date of the last audit for the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_NEXT_AUDIT_DATE:
+      name: Asset Next Audit Date
+      type: DATE
+      column: ASSET_NEXT_AUDIT_DATE
+      desc: Date for the next scheduled audit
+      primary_key: false
+      foreign_key: false
+    ASSET_PHYSICAL:
+      name: Asset Physical
+      type: NUMBER
+      column: ASSET_PHYSICAL
+      desc: Indicates if the asset is physical
+      primary_key: false
+      foreign_key: false
+    ASSET_BYOD:
+      name: Asset BYOD
+      type: NUMBER
+      column: ASSET_BYOD
+      desc: Indicates if the asset is BYOD  ( Bring Your Own Device)
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_CPU_7:
+      name: SnipeIT CPU
+      type: VARCHAR
+      column: SNIPEIT_CPU_7
+      desc: CPU specification of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_RAM_8:
+      name: SnipeIT RAM
+      type: VARCHAR
+      column: SNIPEIT_RAM_8
+      desc: RAM size of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_DISK_TYPE_9:
+      name: SnipeIT Disk Type
+      type: VARCHAR
+      column: SNIPEIT_DISK_TYPE_9
+      desc: Disk type of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_DISK_SIZE_10:
+      name: SnipeIT Disk Size
+      type: VARCHAR
+      column: SNIPEIT_DISK_SIZE_10
+      desc: Disk size of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_DISPLAY_SIZE_11:
+      name: SnipeIT Display Size
+      type: VARCHAR
+      column: SNIPEIT_DISPLAY_SIZE_11
+      desc: Display size of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_RESOLUTION_13:
+      name: SnipeIT Resolution
+      type: VARCHAR
+      column: SNIPEIT_RESOLUTION_13
+      desc: Resolution of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_MONITOR_TYPE_14:
+      name: SnipeIT Monitor Type
+      type: VARCHAR
+      column: SNIPEIT_MONITOR_TYPE_14
+      desc: Monitor type of the asset
+      primary_key: false
+      foreign_key: false
+    SNIPEIT_REPAIR_COUNT_15:
+      name: SnipeIT Repair Count
+      type: NUMBER
+      column: SNIPEIT_REPAIR_COUNT_15
+      desc: Number of repairs done on the asset
+      primary_key: false
+      foreign_key: false
+    ASSET_CHECKIN_COUNTER:
+      name: Asset Check-in Counter
+      type: NUMBER
+      column: ASSET_CHECKIN_COUNTER
+      desc: Counter for asset check-ins
+      primary_key: false
+      foreign_key: false
+    ASSET_CHECKOUT_COUNTER:
+      name: Asset Check-out Counter
+      type: NUMBER
+      column: ASSET_CHECKOUT_COUNTER
+      desc: Counter for asset check-outs
+      primary_key: false
+      foreign_key: false
+    ASSET_REQUESTS_COUNTER:
+      name: Asset Requests Counter
+      type: NUMBER
+      column: ASSET_REQUESTS_COUNTER
+      desc: Counter for asset requests
+      primary_key: false
+      foreign_key: false
+    ASSET_NOTES:
+      name: Asset Notes
+      type: VARCHAR
+      column: ASSET_NOTES
+      desc: Additional notes or comments related to the asset
+      primary_key: false
+      foreign_key: false

@@ -1,0 +1,441 @@
+tcv:
+  folder: revenue
+  type: measure
+  source:
+    schema.tcv:
+      columns:
+        - <all>
+  
+  columns:
+    region:
+      name: region
+      desc: represents the region of projects
+      calculation: "[region]"
+      output_consideration: return distinct records
+      relevant_attributes:
+        - region_apac
+        - region_emea
+        - region_latam
+        - region_offshore
+        - region_na
+        - region_global
+  
+    region_apac:
+      name: APAC
+      synonym:
+        - Asia-Pacific
+        - Asia Pacific
+      desc: represents the APAC region
+      output_consideration: return distinct records
+      calculation: "[region]"
+      filters:
+        - "[region] = 'APAC'"
+  
+    region_emea:
+      name: EMEA
+      synonym:
+        - Europe, Middle East, and Africa
+        - EMEA Region
+      desc: represents the EMEA region
+      calculation: "[region]"
+      output_consideration: return distinct records
+      filters:
+        - "[region] = 'EMEA'"
+  
+    region_latam:
+      name: LATAM
+      synonym:
+        - Latin America
+        - Latin American Region
+      desc: represents the LATAM region
+      calculation: "[region]"
+      output_consideration: return distinct records
+      filters:
+        - "[region] = 'LATAM'"
+  
+    region_offshore:
+      name: Offshore
+      synonym:
+        - Offshore Region
+        - Overseas
+        - Remote
+      desc: represents the Offshore region
+      calculation: "[region]"
+      output_consideration: return distinct records
+      filters:
+        - "[region] = 'OFFSHORE'"
+  
+    region_na:
+      name: NA
+      synonym:
+        - Not Available
+        - Unknown
+        - Not Assigned
+        - Unavailable
+      desc: represents entries where the region is not specified (NA).
+      calculation: "[region]"
+      output_consideration: return distinct records
+      filters:
+        - "[region] = 'NA'"
+  
+    region_global:
+      name: NA
+      synonym:
+        - global
+        - worldwide
+      desc: represents entries where the region is not specified (NA).
+      output_consideration: return distinct records
+      calculation: "[region]"
+      filters:
+        - "[region] ilike '%global%'"
+  
+    subsidiary:
+      name: Subsidiary
+      synonym:
+        - country
+        - subsidiaries
+      calculation: "[subsidiary]"
+      filter_consideration: use ILIKE while filter, ILIKE '%[subsidiary]%'
+      output_consideration: return distinct records
+      include:
+        - subsidiary
+  
+    client:
+      name: Client
+      synonyms:
+        - Client Detail
+      output_consideration: return distinct records]
+      filter_consideration: use ILIKE while filter, ILIKE '%[client_name]%' or ilike '%[client_short_name]%'
+      columns:
+        - "[client_name]"
+        - "[client_short_name]"
+  
+    line_of_business:
+      name: line of business
+      synonym:
+        - lob
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      relevant_attributes:
+        - lob_merchandising_supply_chain
+        - lob_analytics_data_science
+        - lob_managed_services
+        - lob_stores
+        - lob_digital
+        - lob_not_applicable
+  
+    lob_merchandising_supply_chain:
+      name: LOB Merchandising and Supply Chain
+      synonym:
+        - Merchandising and Supply Chain
+        - Merchandising and Supply Chain line of business
+      desc: represents the Line of Business focused on Merchandising and Supply Chain management
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Merchandising & Supply Chain'"
+  
+    lob_analytics_data_science:
+      name: LOB Analytics and Data Science
+      synonym:
+        - analytics and data science
+        - Analytics and Data Science line of business
+      desc: represents the Line of Business focused on Analytics and Data Science services
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Analytics & Data Science'"
+  
+    lob_managed_services:
+      name: LOB Managed Services
+      synonym:
+        - managed services
+        - Managed Services line of business
+      desc: represents the Line of Business focused on providing managed services, particularly in IT
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Managed Services'"
+  
+    lob_stores:
+      name: LOB Stores
+      synonym:
+        - lob stores
+        - stores line of business
+      desc: represents the Line of Business related to store operations and retail.
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Stores'"
+  
+    lob_digital:
+      name: LOB Digital
+      synonym:
+        - Digital
+        - digital line of business
+      desc: represents the Line of Business focused on digital services and transformation.
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Digital'"
+  
+    lob_not_applicable:
+      name: LOB Not Applicable
+      synonym:
+        - lob NA
+        - not applicable
+        - not applicable line of business
+      desc: represents entries where the Line of Business is not applicable or is unspecified.
+      calculation: "[line_of_business]"
+      output_consideration: return distinct records
+      filters:
+        - "[line_of_business] = 'LOB Not Applicable'"
+  
+    opportunity_status:
+      name: Opportunity Status
+      synonyms:
+        - Project Status
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      relevant_attributes:
+        - deal_identified
+        - deal_qualified
+        - discovery_complete
+        - solutioning_complete
+        - proposal_submitted
+        - project_qualified
+        - verbal_commit
+        - started_at_risk_no_invoicing
+        - started_at_risk_can_invoice
+        - closed_won
+        - completed
+  
+    deal_identified:
+      name: deal identified opportunity
+      synonym:
+        - deal identified opportunity status
+        - deal identified
+        - opportunity status 1
+      desc: the opportunity has been identified, but no significant progress has been made.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '01-Deal Identified"
+  
+    deal_qualified:
+      name: deal qualified opportunity
+      synonym:
+        - deal qualified opportunity status
+        - deal qualified
+        - opportunity status 2
+      desc: the opportunity has been assessed and meets criteria for further pursuit.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '02-Deal Qualified'"
+  
+    discovery_complete:
+      name: discovery complete opportunity
+      synonym:
+        - discovery complete opportunity status
+        - discovery complete
+        - opportunity status 3
+      desc: the discovery phase is complete, and the opportunity is clearly defined.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '03-Discovery Complete'"
+  
+    solutioning_complete:
+      name: solutioning complete opportunity
+      synonym:
+        - solutioning complete opportunity status
+        - opportunity status 4
+      desc: A solution has been identified and agreed upon for the opportunity.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '04-Solutioning Complete'"
+  
+    proposal_submitted:
+      name: proposal submitted opportunity
+      synonym:
+        - proposal submitted opportunity status
+        - opportunity status 5
+      desc: a formal proposal has been submitted to the client or stakeholder.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '05-Proposal Submitted'"
+  
+    project_qualified:
+      name: project qualified opportunity
+      synonym:
+        - project qualified opportunity status
+        - project qualified
+        - opportunity status 6
+      desc: the project has been vetted and deemed feasible.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '06-Project Qualified'"
+  
+    verbal_commit:
+      name: verbal commit opportunity
+      synonym:
+        - verbal commit opportunity status
+        - verbal commit
+        - opportunity status 7
+      desc: A verbal agreement or commitment has been received from the client or stakeholder.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '07-Verbal Commit'"
+  
+    started_at_risk_no_invoicing:
+      name: started at risk no invoicing opportunity
+      synonym:
+        - started at risk no invoicing opportunity
+        - started at risk no invoicing
+        - opportunity status 8
+      desc: the project has started without a formal agreement, and invoicing is not permitted.
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '08-Started At Risk - No Invoicing'"
+  
+    started_at_risk_can_invoice:
+      name: started at risk can invoice opportunity
+      synonym:
+        - started at risk can invoice opportunity status
+        - started at risk can invoice opportunity
+        - opportunity status 9
+      desc: the project has started without a formal agreement, but invoicing is permitted
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '09-Started At Risk - Can Invoice'"
+  
+    closed_won:
+      name: closed won opportunity
+      synonym:
+        - closed won opportunity opportunity status
+        - closed won
+        - opportunity status 10
+      desc: represents projects that have been successfully closed and won
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '10-Closed Won'"
+  
+    completed:
+      name: completed opportunity
+      synonym:
+        - completed opportunity status
+        - completed
+        - opportunity status 11
+      desc: represents projects that have been completed
+      calculation: "[opportunity_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[opportunity_status] = '11-Completed'"
+  
+    acquisition_deal_definition:
+      name: Acquisition Deal Definition
+      desc: description of the acquisition deal.
+      output_consideration: return distinct records
+      relevant_attributes:
+        - standalone_acquisition
+        - synergy_acquisition
+  
+    standalone_acquisition:
+      name: Standalone Acquisition
+      synonyms:
+        - Standalone
+      calculation: "[acquisition_deal_definition]"
+      output_consideration: return distinct records
+      filters:
+        - "[acquisition_deal_definition] = 'Standalone'"
+  
+    synergy_acquisition:
+      name: Standalone Acquisition
+      synonyms:
+        - Standalone
+      calculation: "[acquisition_deal_definition]"
+      output_consideration: return distinct records
+      filters:
+        - "[acquisition_deal_definition] = 'Synergy'"
+  
+    contract_status:
+      name: Contract Status
+      desc: the contract status for the opportunity.
+      calculation: "[contract_status]"
+      output_consideration: return distinct records
+      relevant_attributes:
+        - contract_tentative
+        - contract_legal_review
+        - contract_started_at_risk
+        - contract_fully_executed
+  
+    contract_tentative:
+      name: Tentative Contract
+      synonyms:
+        - tentative
+      calculation: "[contract_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[contract_status] = 'Tentative'"
+  
+    contract_legal_review:
+      name: Legal Review
+      synonyms:
+        - tentative
+      calculation: "[contract_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[contract_status] = 'Legal Review'"
+  
+    contract_started_at_risk:
+      name: Started at Risk
+      synonyms:
+        - started at risk
+      calculation: "[contract_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[contract_status] = 'Started at Risk%'"
+  
+    contract_fully_executed:
+      name: Fully Executed
+      synonyms:
+        - fully executed
+      calculation: "[contract_status]"
+      output_consideration: return distinct records
+      filters:
+        - "[contract_status] = %Fully Executed%'"
+  
+    confidence_level:
+      name: confidence_level
+      synonyms:
+        - Confidence Level
+      output_consideration: return distinct records.
+      filter_consideration: use ILIKE while filter, ILIKE '%[confidence_level]%'
+  
+    projects:
+      name: project
+      synonyms:
+        - project
+      include:
+        - project_id
+        - project_name
+      output_consideration: return distinct records
+      filter_consideration: use ILIKE while filter,  ILIKE '%[project_name]%'
+  
+  metrics:
+    tcv_usd:
+      name: Total Contract Value
+      synonym:
+        - Contract Value
+        - Total Value
+      calculation: "[tcv_usd]"
+      function: SUM
+      desc: the total contract value of the projects.

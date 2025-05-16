@@ -1,0 +1,25 @@
+subject_area: game_info
+table_info:
+  - table: game_info
+    joins: []
+columns:
+  game_id:
+    name: game id
+    type: string
+    column: game_id
+    desc: Unique identifier for the game.
+  game_date:
+    name: game date
+    type: timestamp_ntz
+    column: game_date
+    desc: Date and time of the game.
+  attendance:
+    name: attendance
+    type: int
+    column: attendance
+    desc: Number of attendees at the game.
+  game_time:
+    name: game time
+    type: string
+    column: game_time
+    desc: Duration or timing of the game.
