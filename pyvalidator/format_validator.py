@@ -1,8 +1,11 @@
 import re
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, field_validator, model_validator, ValidationError
 from typing import List, Dict, Optional, Generic, TypeVar, Type            
 import sys
 import yaml    
+from ruamel.yaml import YAML
+
+import logging
 
 class TableInfo(BaseModel):
     table: str
@@ -54,7 +57,7 @@ class GeneratedSchema(BaseModel):
     @model_validator(mode="after")
     def _check_unique_column_id(self):
         columns = list(self.columns.keys())
-        print(columns)
+        # print(columns)
         # columns = values.get("columns",{})
         column_ids = set()
         for column_id in columns:
@@ -150,19 +153,80 @@ class SemanticWrapper(BaseModel, Generic[GeneratedSemanticsType]):
     root: Dict[str, GeneratedSemanticsType]
 
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python format_validator.py <path_to_yaml_file>")
-        sys.exit(1)
-
-    path = sys.argv[1]
-
-    with open(path, 'r') as f:
-        data = yaml.safe_load(f)
-
+def main(schema_path):
+    
+    yaml = YAML()
+    
+    with open(schema_path, 'r') as file:
+        yaml_file = yaml.load(file)
+        
+        # print(yaml_file)
+    
+    # Extract key from the yaml file    
+    keys = list(yaml_file.keys())
+    yaml_file = yaml_file[keys[0]]
+    
+    # wrapping schema into the schema wrapper
     try:
-        SchemaWrapper[GeneratedSchema](root=data)
-        print("Format validation passed.")
-    except Exception as e:
-        print(f"Format validation failed: {e}")
-        sys.exit(1)
+        schema = GeneratedSchema(**yaml_file)
+        print("Format Validation Passed")
+    except ValidationError as error:
+        # print(error.errors())
+        error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+        return error
+    
+
+
+def get_line_number(node):
+    if hasattr(node, 'start_mark'):
+        return node.start_mark.line + 1  # ruamel uses zero-based lines
+    if hasattr(node, 'lc'):
+        return node.lc.line + 1
+    return None
+
+    
+def decipher_error_messages(schema_path :str,errors: List[Dict[str, str]]) -> List[str]:
+    
+    yaml = YAML()
+    with open(schema_path, 'r') as file:
+        yaml_file = yaml.load(file)
+    
+    error_messages = []
+    for error in errors:
+        loc = list(error.get("loc", []))
+        msg = error.get("msg", "")
+        _type = error.get("type", "")
+        
+        if _type == "missing":
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
+            for key in loc[:-1]:
+                node = node.key
+            line_number = node.start_mark.line
+            missing_element = loc[-1]
+            parent_element = loc[-2] if len(loc) > 1 else None
+            error_messages.append(f"Missing element '{missing_element}' in '{parent_element}' at line {line_number + 1}")
+        
+        if re.match(r"^[\w]*_type", _type):
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
+            for key in loc[:-1]:
+                node = node[key]
+            line_number = node.lc.data[loc[-1]][0] + 1 
+            error_messages.append(f"Invalid type for '{loc[-1]}' at line {line_number + 1}: {msg}")
+
+    return error_messages
+
+
+    
+def validate_schema_format(schema_path:str):
+    output = main(schema_path="./assets/schema/movies.yml")
+    if output is not None:
+        errors = decipher_error_messages(schema_path="./assets/schema/movies.yml", errors=output)
+        print(*errors,sep="\n")
+        
+    else:
+        print("Format Validation Passed")
+    

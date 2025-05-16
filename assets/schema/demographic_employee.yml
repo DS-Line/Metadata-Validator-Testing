@@ -1,0 +1,164 @@
+demographic_employee:
+  subject_area: Intranet
+  table_info:
+    - table: DEMO_EMPLOYEE_AGENT_MAIN
+      joins: []
+    - table: DEPT_EMPLOYEE_AGENT_MAIN
+      joins:
+        - DEMO_EMPLOYEE_AGENT_MAIN.EMPLOYEE_ID = DEPT_EMPLOYEE_AGENT_MAIN.EMPLOYEE_ID
+
+  columns:
+    EMPLOYEE_ID:
+      name: Employee ID
+      type: NUMBER
+      column: EMPLOYEE_ID
+      desc: Unique identifier for the employee
+      primary_key: false
+      foreign_key: false
+
+    FIRST_NAME:
+      name: First Name
+      type: VARCHAR
+      column: FIRST_NAME
+      desc: First name of the employee
+      primary_key: false
+      foreign_key: false
+      fetch: true
+
+    MID_NAME:
+      name: Middle Name
+      type: VARCHAR
+      column: MID_NAME
+      desc: Middle name of the employee
+      primary_key: false
+      foreign_key: false
+
+    LAST_NAME:
+      name: Last Name
+      type: VARCHAR
+      column: LAST_NAME
+      desc: Last name of the employee
+      primary_key: false
+      foreign_key: false
+      fetch: true
+
+    DATE_OF_BIRTH:
+      name: Date of Birth
+      type: DATE
+      column: DATE_OF_BIRTH
+      desc: Date of birth of the employee
+      primary_key: false
+      foreign_key: false
+
+    MOBILE_NUMBER:
+      name: Mobile Number
+      type: VARCHAR
+      column: MOBILE_NUMBER
+      desc: Mobile number of the employee
+      primary_key: false
+      foreign_key: false
+
+    OFFICE_EMAIL:
+      name: Office Email
+      type: VARCHAR
+      column: OFFICE_EMAIL
+      desc: Official email address of the employee
+      primary_key: false
+      foreign_key: false
+      fetch: true
+
+    PERSONAL_EMAIL:
+      name: Personal Email
+      type: VARCHAR
+      column: PERSONAL_EMAIL
+      desc: Personal email address of the employee
+      primary_key: false
+      foreign_key: false
+
+    MARITAL_STATUS:
+      name: Marital Status
+      type: VARCHAR
+      column: MARITAL_STATUS
+      desc: Marital status of the employee
+      primary_key: false
+      foreign_key: false
+
+    GENDER:
+      name: Gender
+      type: VARCHAR
+      column: GENDER
+      desc: Gender of the employee
+      primary_key: false
+      foreign_key: false
+
+    BLOOD_GROUP:
+      name: Blood Group
+      type: VARCHAR
+      column: BLOOD_GROUP
+      desc: Blood group of the employee
+      primary_key: false
+      foreign_key: false
+
+    EMPLOYMENT_STATUS:
+      name: Employment Status
+      type: VARCHAR
+      column: EMPLOYMENT_STATUS
+      desc: Current employment status of the employee
+      primary_key: false
+      foreign_key: false
+
+    ENROLLMENT_DATE:
+      name: Enrollment Date
+      type: DATE
+      column: ENROLLMENT_DATE
+      desc: Date the employee enrolled or joined
+      primary_key: false
+      foreign_key: false
+
+    EXIT_DATE:
+      name: Exit Date
+      type: DATE
+      column: EXIT_DATE
+      desc: Date the employee exited the organization
+      primary_key: false
+      foreign_key: false
+
+    ENROLLMENT_DATE_NEP:
+      name: Enrollment Date (Nepali)
+      type: VARCHAR
+      column: ENROLLMENT_DATE_NEP
+      desc: Enrollment date in Nepali calendar
+      primary_key: false
+      foreign_key: false
+
+    EMPLOYEE_GROUP:
+      name: Employee Group
+      type: VARCHAR
+      column: EMPLOYEE_GROUP
+      desc: Group classification of the employee
+      primary_key: false
+      foreign_key: false
+
+    CIT_NUMBER:
+      name: CIT Number
+      type: VARCHAR
+      column: CIT_NUMBER
+      desc: CIT number of the employee
+      primary_key: false
+      foreign_key: false
+
+    BANK_ACCOUNT_NUMBER:
+      name: Bank Account Number
+      type: VARCHAR
+      column: BANK_ACCOUNT_NUMBER
+      desc: Bank account number of the employee
+      primary_key: false
+      foreign_key: false
+
+    PAN_NUMBER:
+      name: PAN Number
+      type: VARCHAR
+      column: PAN_NUMBER
+      desc: PAN (Permanent Account Number) of the employee
+      primary_key: false
+      foreign_key: false

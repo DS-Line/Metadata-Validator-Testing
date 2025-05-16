@@ -6,6 +6,7 @@ from pprint import pprint
 from ruamel.yaml import YAML
 from ruamel.yaml.constructor import DuplicateKeyError
 import sys
+from pyvalidator.helpers import decipher_error_messages
 
 
 
@@ -54,37 +55,78 @@ class SchemaValidator():
         schema_table_name = schema.table_info[0].table
 
         if schema_table_name != self.ddl[0]["table_name"]:
-            errors.append(f"Table name mismatch: {schema_table_name} not in DDL")
+            error = {
+                "loc": ('table_info'),
+                "type" : "table_name_mismatch",
+                "msg": f"Schema table name '{schema_table_name}' does not match DDL table name '{self.ddl[0]['table_name']}'"
+            }
+            errors.append(error)
         
         schema_columns = {col.column: col for col in schema.columns.values()} 
         ddl_primary_keys = self.ddl[0]["primary_key"]
+        
+        for schema_col_name in schema_columns.keys():
+            if schema_col_name not in {col['name'] for col in self.ddl[0]['columns']}:
+                error = {
+                    "loc": ('columns', schema_col_name),
+                    "type": "column_extra_in_schema",
+                    "msg": f"Schema column '{schema_col_name}' not found in DDL."
+                }
+                errors.append(error)
+        
         
         for ddl_col in self.ddl[0]['columns']:
             ddl_col_name = ddl_col['name']
             ddl_col_type = ddl_col['type'].upper()
 
             if ddl_col_name not in schema_columns:
-                errors.append(f"DDL column '{ddl_col_name}' not found in schema.")
+                error = {
+                    "loc": ('columns', ddl_col_name),
+                    "type" : "column_not_found",
+                    "msg": f"DDL column '{ddl_col_name}' not found in schema."
+                }
+                errors.append(error)
                 continue
 
             schema_col_type = schema_columns[ddl_col_name].type.upper()
             if not self.types_are_equivalent(ddl_col_type, schema_col_type):
-                errors.append(f"Type mismatch for column '{ddl_col_name}': DDL type '{ddl_col_type}', Schema type '{schema_col_type}'.")
+                error = {
+                    "loc": ('columns', ddl_col_name),
+                    "type" : "type_mismatch",
+                    "msg": f"Type mismatch for column '{ddl_col_name}': DDL type '{ddl_col_type}', Schema type '{schema_col_type}'"}
+                errors.append(error)
 
             if ddl_col_name in ddl_primary_keys:
                 if not schema.columns[ddl_col_name].primary_key:
-                    errors.append(f"'{ddl_col_name}' not stated as primary key in Schema")
+                    error = {
+                        "loc": ('columns', ddl_col_name),
+                        "type" : "primary_key_mismatch",
+                        "msg": f"DDL primary key '{ddl_col_name}' not found in schema."
+                    }
+                    errors.append(error)
             else:
                 if schema.columns[ddl_col_name].primary_key:
-                    errors.append(f"'{ddl_col_name}' stated as primary key in Schema which isn't a primary key")
+                    error = {
+                        "loc": ('columns', ddl_col_name),
+                        "type" : "primary_key_mismatch",
+                        "msg": f"Schema primary key '{ddl_col_name}' not found in DDL."
+                    }
+                    errors.append(error)
             
             if schema_columns[ddl_col_name].fetch:
                 if schema_columns[ddl_col_name].type.upper() == "NUMBER":
-                    errors.append(f"Invalid fetch value for '{ddl_col_name}': Column type is NUMBER")
+                    error = {
+                        "loc": ('columns', ddl_col_name),
+                        "type" : "invalid_fetch",
+                        "msg": f"Invalid fetch value for '{ddl_col_name}': Column type is NUMBER"
+                    }
+                    errors.append(error)
 
         if errors:
-            self._print_errors(errors)
+            errors = decipher_error_messages(schema=generated_schema,errors=errors)
+            print(*errors, sep="\n")
         else:
+            print(*errors, sep="\n")
             print("Schema successfully validated against DDL.")
     
     def _print_errors(self, errors: List[str]):
@@ -111,9 +153,14 @@ def main(ddl_path, schema_path):
             yaml_file = yaml.load(f)  
     except DuplicateKeyError as e:
         print(f"Duplicate Key found: {e}") 
+        
+    
+    # print("validating")
     
     ddl_validator.validate_schema(yaml_file)
         
 
 
 
+if __name__ == "__main__":
+    main("./assets/DDL/movies.sql", "./assets/schema/movies.yml")

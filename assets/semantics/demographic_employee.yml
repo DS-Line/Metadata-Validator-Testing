@@ -1,0 +1,153 @@
+employee_detail:
+  folder: intranet
+  type: dimension
+  source:
+    schema.demographic_employee:
+      columns:
+        - <all>
+
+  attributes:
+    fullName:
+      name: Full Name
+      synonym:
+        - Employee Name
+        - Complete Name
+      description: Full name of the employee including first, middle, and last names.
+      calculation: "CONCAT_WS(' ', [FIRST_NAME], [MID_NAME], [LAST_NAME])"
+
+    employeeDetail:
+      name: Employee Detail
+      description: Grouped attributes providing detailed employee information.
+      include:
+        - fullName
+        - gender
+        - tenure
+        - employeeStatus
+        - enrollmentDate
+        - exitDate
+        - officeEmail
+        - employeeContact
+
+    employeeContact:
+      name: Contact Information
+      synonym:
+        - Contact Details
+        - Phone and Email
+      description: Contact information including mobile number and email.
+      calculation: "[MOBILE_NUMBER]"
+      include:
+        - MOBILE_NUMBER
+        - OFFICE_EMAIL
+        - PERSONAL_EMAIL
+
+    officeEmail:
+      name: Office Email
+      synonym:
+        - Work Email
+        - Official Email
+      description: Official email address of the employee.
+      calculation: "[OFFICE_EMAIL]"
+      filter_consideration: Use ilike '%[OFFICE_EMAIL]%' while applying filter.
+
+    personalEmail:
+      name: Personal Email
+      synonym:
+        - Home Email
+        - Private Email
+      description: Personal email address of the employee.
+      calculation: "[PERSONAL_EMAIL]"
+      filter_consideration: Use ilike '%[PERSONAL_EMAIL]%' while applying filter.
+
+    employeeDOB:
+      name: Date of Birth
+      synonym:
+        - DOB
+        - Birthdate
+      description: Birth date of the employee.
+      calculation: "[DATE_OF_BIRTH]"
+      filter_considerations: extract proper granularity before applying filter.
+
+    gender:
+      name: Gender
+      synonym:
+        - Sex
+      description: Gender of the employee.
+      calculation: "[GENDER]"
+
+    maritalStatus:
+      name: Marital Status
+      synonym:
+        - Relationship Status
+      description: Marital status of the employee.
+      calculation: "[MARITAL_STATUS]"
+
+    bloodGroup:
+      name: Blood Group
+      synonym:
+        - Blood Type
+      description: Blood group of the employee.
+      calculation: "[BLOOD_GROUP]"
+
+    employeeStatus:
+      name: Employment Status
+      synonym:
+        - Job Status
+        - Employee State
+      description: Current employment status of the employee.
+      calculation: "[EMPLOYMENT_STATUS]"
+      filter_consideration: Use ilike '%[EMPLOYMENT_STATUS]%' while applying filter.
+
+    enrollmentDate:
+      name: Enrollment Date
+      synonym:
+        - Join Date
+        - Date of Joining
+      description: The date the employee enrolled in the organization.
+      calculation: "[ENROLLMENT_DATE]"
+      filter_considerations: extract proper granularity level before applying filter.
+      output_considerations: Return distinct values.
+
+    exitDate:
+      name: Exit Date
+      synonym:
+        - Resignation Date
+        - Last Working Day
+      description: The date the employee left the organization, if applicable.
+      calculation: "[EXIT_DATE]"
+
+    employeeGroup:
+      name: Employee Group
+      synonym:
+        - Group Category
+        - Employment Group
+      description: Group classification of the employee.
+      calculation: "[EMPLOYEE_GROUP]"
+
+    citNumber:
+      name: CIT Number
+      synonym:
+        - CIT ID
+        - CIT Registration
+      description: CIT number of the employee.
+      calculation: "[CIT_NUMBER]"
+
+    tenure:
+      name: Employee Tenure
+      synonym:
+        - Service Duration
+        - Length of Employment
+      description: Number of years the employee has worked in the organization.
+      calculation: "DATEDIFF(year, [ENROLLMENT_DATE], COALESCE([EXIT_DATE], CURRENT_DATE))"
+
+  metrics:
+    tenureDistribution:
+      name: Tenure Distribution
+      description: Count of employees grouped by their tenure in years.
+      type: table
+      calculation: |
+        SELECT 
+          DATEDIFF(year, ENROLLMENT_DATE, COALESCE(EXIT_DATE, CURRENT_DATE)) AS tenure_years,
+          COUNT(*) AS employee_count
+        FROM DEMO_EMPLOYEE_AGENT_MAIN
+        GROUP BY DATEDIFF(year, ENROLLMENT_DATE, COALESCE(EXIT_DATE, CURRENT_DATE))
+        ORDER BY tenure_years
