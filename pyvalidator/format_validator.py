@@ -3,9 +3,15 @@ from pydantic import BaseModel, field_validator, model_validator, ValidationErro
 from typing import List, Dict, Optional, Generic, TypeVar, Type            
 import sys
 import yaml    
-from ruamel.yaml import YAML
+
 
 import logging
+from ruamel.yaml import YAML
+from ruamel.yaml.constructor import DuplicateKeyError 
+from ruamel.yaml.comments import CommentedMap
+
+from pyvalidator.helpers import decipher_error_messages, print_decorated_section
+
 
 class TableInfo(BaseModel):
     table: str
@@ -57,8 +63,6 @@ class GeneratedSchema(BaseModel):
     @model_validator(mode="after")
     def _check_unique_column_id(self):
         columns = list(self.columns.keys())
-        # print(columns)
-        # columns = values.get("columns",{})
         column_ids = set()
         for column_id in columns:
             if column_id not in column_ids:
@@ -151,16 +155,17 @@ class GeneratedSemantics(BaseModel):
 GeneratedSemanticsType = TypeVar("GeneratedScemanticsType", bound= GeneratedSemantics)
 class SemanticWrapper(BaseModel, Generic[GeneratedSemanticsType]):
     root: Dict[str, GeneratedSemanticsType]
+    
 
 
-def main(schema_path):
+def schema_main(schema_path):
+    
+    print_decorated_section(title="Validating Schema Format")
     
     yaml = YAML()
     
     with open(schema_path, 'r') as file:
         yaml_file = yaml.load(file)
-        
-        # print(yaml_file)
     
     # Extract key from the yaml file    
     keys = list(yaml_file.keys())
@@ -169,64 +174,55 @@ def main(schema_path):
     # wrapping schema into the schema wrapper
     try:
         schema = GeneratedSchema(**yaml_file)
-        print("Format Validation Passed")
     except ValidationError as error:
-        # print(error.errors())
         error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
         return error
     
-
-
-def get_line_number(node):
-    if hasattr(node, 'start_mark'):
-        return node.start_mark.line + 1  # ruamel uses zero-based lines
-    if hasattr(node, 'lc'):
-        return node.lc.line + 1
-    return None
-
-    
-def decipher_error_messages(schema_path :str,errors: List[Dict[str, str]]) -> List[str]:
-    
-    yaml = YAML()
-    with open(schema_path, 'r') as file:
-        yaml_file = yaml.load(file)
-    
-    error_messages = []
-    for error in errors:
-        loc = list(error.get("loc", []))
-        msg = error.get("msg", "")
-        _type = error.get("type", "")
-        
-        if _type == "missing":
-            node = yaml_file
-            keys = list(node.keys())
-            node = node[keys[0]]
-            for key in loc[:-1]:
-                node = node.key
-            line_number = node.start_mark.line
-            missing_element = loc[-1]
-            parent_element = loc[-2] if len(loc) > 1 else None
-            error_messages.append(f"Missing element '{missing_element}' in '{parent_element}' at line {line_number + 1}")
-        
-        if re.match(r"^[\w]*_type", _type):
-            node = yaml_file
-            keys = list(node.keys())
-            node = node[keys[0]]
-            for key in loc[:-1]:
-                node = node[key]
-            line_number = node.lc.data[loc[-1]][0] + 1 
-            error_messages.append(f"Invalid type for '{loc[-1]}' at line {line_number + 1}: {msg}")
-
-    return error_messages
-
-
-    
 def validate_schema_format(schema_path:str):
-    output = main(schema_path="./assets/schema/movies.yml")
+    output = schema_main(schema_path=schema_path)
     if output is not None:
-        errors = decipher_error_messages(schema_path="./assets/schema/movies.yml", errors=output)
-        print(*errors,sep="\n")
+        errors = decipher_error_messages(yaml_path=schema_path, errors=output)
+        print_decorated_section(title="Format Validation Failed", content=errors)
+        return errors
         
     else:
-        print("Format Validation Passed")
+        print_decorated_section(title="Format Validation Passed")
     
+
+def semantic_main(semantic_path):
+    yaml = YAML()
+
+    print_decorated_section(title="Validating Formats in Semantics")
+    # semantic_path = "assets/semantics/movies.yml"
+    with open(semantic_path, 'r') as file:
+        try:
+            yaml_file = yaml.load(file)
+        except DuplicateKeyError as e:
+            print_decorated_section(title="Duplicate Key found", content=[f"Duplicate Key found: {e}"])
+        
+        
+    
+    keys = list(yaml_file.keys())
+    yaml_file = yaml_file[keys[0]]
+    
+    try:
+        semantic = GeneratedSemantics(**yaml_file)
+        print_decorated_section(title="Format Validation Passed")
+    except ValidationError as error:
+        error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+        return error
+    
+    
+def validate_semantic_format(semantic_path:str):
+    output = semantic_main(semantic_path=semantic_path)
+    if output is not None:
+        errors = decipher_error_messages(yaml_path=semantic_path, errors=output)
+        print_decorated_section(title="Format Validation Failed", content=errors)
+        return errors
+            
+    else:
+        print_decorated_section(title="Format Validation Passed")
+            
+            
+if __name__ == "__main__":
+    validate_semantic_format(semantic_path="./assets/semantics/movies.yml")

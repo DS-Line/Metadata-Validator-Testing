@@ -6,7 +6,7 @@ from pprint import pprint
 from ruamel.yaml import YAML
 from ruamel.yaml.constructor import DuplicateKeyError
 import sys
-from pyvalidator.helpers import decipher_error_messages
+from pyvalidator.helpers import decipher_error_messages, print_decorated_section
 
 
 
@@ -38,8 +38,13 @@ class SchemaValidator():
                 return True
         return ddl_type == schema_type  # fallback: exact match
     
-    def validate_schema(self, generated_schema: Dict):
+    def validate_schema(self, schema_path: str):
         errors = []  # collect errors here
+        
+        
+        with open(schema_path) as f:
+            yaml = YAML()
+            generated_schema = yaml.load(f)
         
         schema_key = list(generated_schema.keys())[0]
         schema = generated_schema[schema_key]
@@ -49,7 +54,6 @@ class SchemaValidator():
         except Exception as e:
             errors.append(f"Schema parsing error: {e}")
             # If schema itself can't parse, stop validation here
-            self._print_errors(errors)
             return
         
         schema_table_name = schema.table_info[0].table
@@ -123,23 +127,18 @@ class SchemaValidator():
                     errors.append(error)
 
         if errors:
-            errors = decipher_error_messages(schema=generated_schema,errors=errors)
-            print(*errors, sep="\n")
+            errors = decipher_error_messages(yaml_path=schema_path,errors=errors)
+            print_decorated_section(title="Schema Validation Errors", content=errors)
         else:
-            print(*errors, sep="\n")
-            print("Schema successfully validated against DDL.")
+            print_decorated_section(title="Schema Validation Passed")
     
-    def _print_errors(self, errors: List[str]):
-        print("Schema validation errors found:")
-        for err in errors:
-            print(f"  - {err}")
 
                 
                 
                 
 def main(ddl_path, schema_path):
-    
-    print("Validating schema against DDL...")
+
+    print_decorated_section(title="Validating Schema against DDL")
     
     with open(ddl_path, 'r') as f:
         ddl = f.read() 
@@ -152,12 +151,10 @@ def main(ddl_path, schema_path):
         with open(schema_path,'r') as f:
             yaml_file = yaml.load(f)  
     except DuplicateKeyError as e:
-        print(f"Duplicate Key found: {e}") 
+        print_decorated_section(title= "Duplicate Key Error", content=[f"Duplicate Key found: {e}"])
         
     
-    # print("validating")
-    
-    ddl_validator.validate_schema(yaml_file)
+    ddl_validator.validate_schema(schema_path)
         
 
 
