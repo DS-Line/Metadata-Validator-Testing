@@ -82,10 +82,12 @@ class SemanticsValidator:
         with open(semantic_path) as f:
             yaml = YAML()
             yaml_file = yaml.load(f)
-            generated_semantics = SemanticWrapper(**yaml_file)
-        key = list(generated_semantics.keys())[0]
-        generated_semantics = generated_semantics.get(key)
+        
+        key = list(yaml_file.keys())[0]
+        
+        generated_semantics = yaml_file.get(key)
 
+        
         schema_dict = self.parse_schema()
         attributes = generated_semantics.get("attributes", {})
         metrics = generated_semantics.get("metrics", {})
@@ -98,7 +100,7 @@ class SemanticsValidator:
         self.validate_item(metrics, schema_dict, reference_columns, "metrics")
 
         if self.errors:
-            errors = decipher_error_messages(yaml_path=None, errors=self.errors)
+            errors = decipher_error_messages(yaml_path=semantic_path, errors=self.errors)
             print_decorated_section(title="Format Validation Failed", content=errors)
                 
         else:
