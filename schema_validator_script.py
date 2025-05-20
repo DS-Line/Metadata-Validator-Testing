@@ -9,4 +9,4 @@ format_errors = validate_schema_format(schema_path)
 if not format_errors:
    ddl_errors = validate_schema_ddl(ddl_path, schema_path)
 else:
-    print("Format Validation Failed")
+    print("Correct Format for Schema before passing it to validate against DDL")

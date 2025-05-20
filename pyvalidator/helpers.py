@@ -49,133 +49,132 @@ def decipher_error_messages(yaml_path :str,errors: List[Dict[str, str]]) -> List
             except Exception:
                 loc = []
 
-            msg = error.get("msg", "")
-            _type = error.get("type", "")
+        msg = error.get("msg", "")
+        _type = error.get("type", "")
 
-            if _type == "missing":
-                if len(loc) == 1:
-                    missing_key = loc[0]
-                    line_number = get_top_level_line(missing_key)
-                    error_messages.append(
+        if _type == "missing":
+            if len(loc) == 1:
+                missing_key = loc[0]
+                line_number = get_top_level_line(missing_key)
+                error_messages.append(
                         f"Missing top-level element '{missing_key}' at or near line {line_number}"
                     )
-                    continue
+                continue
 
-                # else follow original deeper logic
-                node = yaml_file
-                keys = list(node.keys())
-                node = node[keys[0]]
+            # else follow original deeper logic
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
 
-                parents = []
-                for key in loc[:-1]:
-                    if not isinstance(node, dict):
-                        node = None
+            parents = []
+            for key in loc[:-1]:
+                if not isinstance(node, dict):
+                    node = None
+                    break
+                parents.append((node, key))
+                node = node.get(key)
+
+            line_number = None
+            for parent, key in reversed(parents):
+                if hasattr(parent, "lc") and isinstance(parent, CommentedMap):
+                    try:
+                        line_number = parent.lc.data[key][0] + 1
                         break
-                    parents.append((node, key))
-                    node = node.get(key)
+                    except (KeyError, IndexError, TypeError):
+                        continue
 
-                line_number = None
-                for parent, key in reversed(parents):
-                    if hasattr(parent, "lc") and isinstance(parent, CommentedMap):
-                        try:
-                            line_number = parent.lc.data[key][0] + 1
-                            break
-                        except (KeyError, IndexError, TypeError):
-                            continue
+            missing_element = loc[-1]
+            parent_element = loc[-2] if len(loc) > 1 else None
 
-                missing_element = loc[-1]
-                parent_element = loc[-2] if len(loc) > 1 else None
-
-                if line_number is not None:
-                    error_messages.append(
+            if line_number is not None:
+                error_messages.append(
                         f"Missing element '{missing_element}' in '{parent_element}' at line {line_number}"
                     )
-                else:
-                    error_messages.append(
+            else:
+                error_messages.append(
                         f"Missing element '{missing_element}' in '{parent_element}' (line unknown)"
                     )
 
-            elif re.match(r"^[\w]*_type", _type):
-                if len(loc) == 1:
-                    key = loc[0]
-                    line_number = get_top_level_line(key)
-                    error_messages.append(
+        elif re.match(r"^[\w]*_type", _type):
+            if len(loc) == 1:
+                key = loc[0]
+                line_number = get_top_level_line(key)
+                error_messages.append(
                         f"Invalid type for top-level '{key}' at or near line {line_number}: {msg}"
                     )
-                    continue
+                continue
 
-                node = yaml_file
-                keys = list(node.keys())
-                node = node[keys[0]]
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
 
-                for key in loc[:-1]:
-                    node = node[key]
+            for key in loc[:-1]:
+                node = node[key]
 
-                try:
-                    line_number = node.lc.data[loc[-1]][0] + 1
-                except (KeyError, IndexError, TypeError, AttributeError):
-                    line_number = None
+            try:
+                line_number = node.lc.data[loc[-1]][0] + 1
+            except (KeyError, IndexError, TypeError, AttributeError):
+                line_number = None
 
-                if line_number is not None:
-                    error_messages.append(
+            if line_number is not None:
+                error_messages.append(
                         f"Invalid type for '{loc[-1]}' at line {line_number}: {msg}"
                     )
-                else:
-                    error_messages.append(
+            else:
+                error_messages.append(
                         f"Invalid type for '{loc[-1]}' (line unknown): {msg}"
                     )
 
-            elif _type == "table_name_mismatch":
-                if len(loc) == 1:
-                    key = loc[0]
-                    line_number = get_top_level_line(key)
-                    error_messages.append(f"{msg} at or near line {line_number}")
-                    continue
+        elif _type == "table_name_mismatch":
+            if len(loc) == 1:
+                key = loc[0]
+                line_number = get_top_level_line(key)
+                error_messages.append(f"{msg} at or near line {line_number}")
+                continue
 
-                node = yaml_file
-                keys = list(node.keys())
-                node = node[keys[0]]
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
 
-                for key in loc[:-1]:
-                    node = node[key]
+            for key in loc[:-1]:
+                node = node[key]
 
-                key_for_line = loc[-1] if loc else keys[0]
+            key_for_line = loc[-1] if loc else keys[0]
 
-                try:
-                    line_number = node.lc.data[key_for_line][0] + 1
-                except (KeyError, IndexError, TypeError, AttributeError):
-                    line_number = None
+            try:
+                line_number = node.lc.data[key_for_line][0] + 1
+            except (KeyError, IndexError, TypeError, AttributeError):
+                line_number = None
 
-                if line_number is not None:
-                    error_messages.append(f"{msg} at line number {line_number}")
-                else:
-                    error_messages.append(f"{msg} at unknown line")
-
+            if line_number is not None:
+                error_messages.append(f"{msg} at line number {line_number}")
             else:
-                if len(loc) == 1:
-                    key = loc[0]
-                    line_number = get_top_level_line(key)
-                    error_messages.append(f"{msg} at or near line {line_number}")
-                    continue
+                error_messages.append(f"{msg} at unknown line")
 
-                node = yaml_file
-                keys = list(node.keys())
-                node = node[keys[0]]
+        else:
+            if len(loc) == 1:
+                key = loc[0]
+                line_number = get_top_level_line(key)
+                error_messages.append(f"{msg} at or near line {line_number}")
+                continue
 
-                for key in loc[:-1]:
-                    node = node[key]
+            node = yaml_file
+            keys = list(node.keys())
+            node = node[keys[0]]
 
-                try:
-                    line_number = node.lc.data[loc[-1]][0] + 1
-                except (KeyError, IndexError, TypeError, AttributeError):
-                    line_number = None
+            for key in loc[:-1]:
+                node = node[key]
 
-                if line_number is not None:
-                    error_messages.append(f"{msg} at line number {line_number}")
-                else:
-                    error_messages.append(f"{msg} at unknown line")
+            try:
+                line_number = node.lc.data[loc[-1]][0] + 1
+            except (KeyError, IndexError, TypeError, AttributeError):
+                line_number = None
+
+            if line_number is not None:
+                error_messages.append(f"{msg} at line number {line_number}")
+            else:
+                error_messages.append(f"{msg} at unknown line")
         
-
     return error_messages
 
 
