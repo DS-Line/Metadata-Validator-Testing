@@ -35,11 +35,11 @@ class SemanticsValidator:
         tokens = pattern.findall(sql_query)
         return tokens
 
-    def validate_references(self, references: List[str], valid_keys: List[str], context: str, key: str):
+    def validate_references(self, section:str, references: List[str], valid_keys: List[str], context: str, key: str):
         for ref in references:
             if ref not in valid_keys:
                 error = {
-                    "loc": (context, ref),
+                    "loc": (section, key, context, ref),
                     "type": "invalid_reference",
                     "msg": f"Incorrect reference '{ref}' in {context} of '{key}'. Not found in schema."
                 }
@@ -48,14 +48,14 @@ class SemanticsValidator:
     def validate_item(self, item: Dict, schema_dict: Dict, reference_columns: List[str], section: str):
         for key, values in item.items():
             if values.get("include"):
-                self.validate_references(values["include"], reference_columns, "include", key)
+                self.validate_references(section, values["include"], reference_columns, "include", key)
 
             if values.get("calculation"):
                 columns = self.extract_column_names(values["calculation"])
                 for col in columns:
                     if col not in (schema_dict["column_ids"] if section == "attributes" else reference_columns):
                         error = {
-                            "loc": ("calculation", col),
+                            "loc": (section,key,"calculation", col),
                             "type": "invalid_reference",
                             "msg": f"Incorrect reference '{col}' in calculation of '{key}'. Not found in schema."
                         }
