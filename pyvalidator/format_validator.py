@@ -116,7 +116,14 @@ class SchemaWrapper(BaseModel, Generic[GeneratedSchemaType]):
     
     
 class SourceColumns(BaseModel):
-    columns: List[str]
+    columns: Optional[List[str]] = None
+    
+    @model_validator(mode="after")
+    def check_source(cls, values):
+        if not (values.columns):
+            raise ValueError("Columns in source cannot be empty")
+        return values
+
 
 
 
@@ -151,7 +158,6 @@ class GeneratedSemantics(BaseModel):
     attributes: Dict[str, Attributes]
     metrics: Dict[str, Metrics]
     
-    
 GeneratedSemanticsType = TypeVar("GeneratedScemanticsType", bound= GeneratedSemantics)
 class SemanticWrapper(BaseModel, Generic[GeneratedSemanticsType]):
     root: Dict[str, GeneratedSemanticsType]
@@ -165,18 +171,27 @@ def schema_main(schema_path):
     yaml = YAML()
     
     with open(schema_path, 'r') as file:
-        yaml_file = yaml.load(file)
+        try:
+            yaml_file = yaml.load(file)
+        except DuplicateKeyError as e:
+            print_decorated_section(title="Duplicate Key found", content=[f"Duplicate Key found: {e}"])
+            
     
     # Extract key from the yaml file    
     keys = list(yaml_file.keys())
     yaml_file = yaml_file[keys[0]]
     
     # wrapping schema into the schema wrapper
-    try:
-        schema = GeneratedSchema(**yaml_file)
-    except ValidationError as error:
-        error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+    if len(keys) > 1:
+        error = [{"loc": ["root"], "msg": "Schema should have only one key at the top level", "type": "top_level_key_error"}]
         return error
+    else:
+        try:
+            schema = GeneratedSchema(**yaml_file)
+        except ValidationError as error:
+            error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+            return error
+    
     
 def validate_schema_format(schema_path:str):
     output = schema_main(schema_path=schema_path)
@@ -194,6 +209,8 @@ def semantic_main(semantic_path):
 
     print_decorated_section(title="Validating Formats in Semantics")
     # semantic_path = "assets/semantics/movies.yml"
+    
+
     with open(semantic_path, 'r') as file:
         try:
             yaml_file = yaml.load(file)
@@ -205,12 +222,15 @@ def semantic_main(semantic_path):
     keys = list(yaml_file.keys())
     yaml_file = yaml_file[keys[0]]
     
-    try:
-        semantic = GeneratedSemantics(**yaml_file)
-        print_decorated_section(title="Format Validation Passed")
-    except ValidationError as error:
-        error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+    if len(keys) > 1:
+        error = [{"loc": ["root"], "msg": "Semantics should have only one key at the top level", "type": "top_level_key_error"}]
         return error
+    else:
+        try:
+            semantic = GeneratedSemantics(**yaml_file)
+        except ValidationError as error:
+            error = [{"loc": e["loc"], "msg": e["msg"], "type": e["type"]} for e in error.errors()]
+            return error
     
     
 def validate_semantic_format(semantic_path:str):
