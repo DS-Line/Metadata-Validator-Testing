@@ -8,7 +8,5 @@
 - python3 pyvalidator/test/semantic_validator.py
 
 
-- You will be asked to enter the relative path for both ddl and schema (in case of schema validation) 
-- Or, schema and semantics for semantics validation
-
-- Make sure to use relative path (For e.g. assets/schema/schema.yml)
+- Enter the relative path for ddl, schema and semantics for the respective scripts.
+- e.g. ddl_path = "./assets/DDL/infra_asset_details.sql"
