@@ -1,0 +1,47 @@
+subject_area: student course enrollment
+table_info:
+- table: enrollments
+  joins:
+  - enrollments.student_id = students.student_id
+  - enrollments.course_id = courses.course_id
+columns:
+  enrollment_id:
+    name: enrollment_id
+    type: INT
+    column: enrollment_id
+    desc: Unique identifier for a specific enrollment record.
+    primary_key: true
+    foreign_key: false
+    fetch: null
+  student_id:
+    name: student_id
+    type: INT
+    column: student_id
+    desc: Unique identifier for each student enrolled in the course.
+    primary_key: false
+    foreign_key: true
+    fetch: null
+  course_id:
+    name: course_id
+    type: INT
+    column: course_id
+    desc: Unique identifier for the course the student is enrolled in.
+    primary_key: false
+    foreign_key: true
+    fetch: null
+  enrollment_date:
+    name: enrollment_date
+    type: DATE
+    column: enrollment_date
+    desc: Date the student began the enrollment period.
+    primary_key: false
+    foreign_key: false
+    fetch: null
+  grade:
+    name: grade
+    type: CHAR
+    column: grade
+    desc: Letter grade earned in the enrolled course.
+    primary_key: false
+    foreign_key: false
+    fetch: null

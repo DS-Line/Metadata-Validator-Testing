@@ -1,0 +1,39 @@
+subject_area: course offerings details
+table_info:
+- table: courses
+  joins:
+  - courses.department_id = departments.department_id
+  - courses.professor_id = professors.professor_id
+columns:
+  course_id:
+    name: course_id
+    type: INT
+    column: course_id
+    desc: Unique identifier for a specific course offering.
+    primary_key: true
+    foreign_key: false
+    fetch: null
+  title:
+    name: title
+    type: VARCHAR
+    column: title
+    desc: Course title, such as the name of the class.
+    primary_key: false
+    foreign_key: false
+    fetch: null
+  department_id:
+    name: department_id
+    type: INT
+    column: department_id
+    desc: Foreign key referencing the department's unique identifier.
+    primary_key: false
+    foreign_key: true
+    fetch: null
+  professor_id:
+    name: professor_id
+    type: INT
+    column: professor_id
+    desc: ID of the professor teaching the specific course.
+    primary_key: false
+    foreign_key: true
+    fetch: null

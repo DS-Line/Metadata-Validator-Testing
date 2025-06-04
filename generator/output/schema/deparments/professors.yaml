@@ -1,0 +1,30 @@
+subject_area: professor information
+table_info:
+- table: professors
+  joins:
+  - professors.department_codee = departments.department_code
+columns:
+  professor_id:
+    name: professor_id
+    type: INT
+    column: professor_id
+    desc: Unique identifier for each professor in the database.
+    primary_key: true
+    foreign_key: false
+    fetch: null
+  name:
+    name: name
+    type: VARCHAR
+    column: name
+    desc: Professor's full name, including first and last names.
+    primary_key: false
+    foreign_key: false
+    fetch: null
+  department_codee:
+    name: department_codee
+    type: VARCHAR
+    column: department_codee
+    desc: Code representing the department affiliation of the professor.
+    primary_key: false
+    foreign_key: true
+    fetch: null

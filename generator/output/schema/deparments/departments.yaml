@@ -1,0 +1,29 @@
+subject_area: organization departments information
+table_info:
+- table: departments
+  joins: []
+columns:
+  department_id:
+    name: department_id
+    type: INT
+    column: department_id
+    desc: Unique identifier for each department in the organization.
+    primary_key: true
+    foreign_key: false
+    fetch: null
+  department_code:
+    name: department_code
+    type: VARCHAR
+    column: department_code
+    desc: Unique identifier for a specific department within the organization.
+    primary_key: false
+    foreign_key: false
+    fetch: null
+  name:
+    name: name
+    type: VARCHAR
+    column: name
+    desc: Name of the department within the organization.
+    primary_key: false
+    foreign_key: false
+    fetch: null
