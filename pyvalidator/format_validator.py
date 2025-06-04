@@ -1,5 +1,5 @@
 import re
-from pydantic import BaseModel, field_validator, model_validator, ValidationError
+from pydantic import BaseModel, field_validator, model_validator, ValidationError, Field
 from typing import List, Dict, Optional, Generic, TypeVar, Type            
 import sys
 import yaml    
@@ -13,24 +13,27 @@ from ruamel.yaml.comments import CommentedMap
 from pyvalidator.helpers import decipher_error_messages, print_decorated_section
 
 
+class Join(BaseModel):
+    join: str
+    on: str
+
+    @model_validator(mode='after')
+    def _validate_joins_format(self):
+        if self.join:
+            if not self.on:
+                raise ValueError(f'Join condition empty for join {self.join}')
+            pattern = r'^[\w]+\.[\w]+\s*=\s*[\w]+\.[\w]+$'
+            if not isinstance(self.on, str) or not re.match(pattern, self.on):
+                raise ValueError(
+                    f'Invalid join condition format: "{self.on}". Expected format: "table.column = table.column"'
+                )
+        return self
+    
+    
 class TableInfo(BaseModel):
     table: str
-    joins: List[str]
-    
-    
-    @field_validator('joins')
-    @classmethod
-    def _validate_joins_format(cls, joins):
-        if not joins:
-            return joins
-        
-        for condition in joins:
-            pattern = r'^[\w]+\.[\w]+\s*=\s*[\w]+\.[\w]+$'
-            if not isinstance(condition,str) or not re.match(pattern,condition):
-                raise ValueError(
-                    f'Invalid join condition format: "{condition}". Expected format: "table.column = table.column"'
-                )
-        return joins
+    joins: List[Join] = Field(default=[])
+
     
     @field_validator('table')
     @classmethod
