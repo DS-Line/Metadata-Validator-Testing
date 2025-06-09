@@ -23,4 +23,6 @@ logging.basicConfig(
 )
 
 # Create a logger object
-logger = logging.getLogger(__name__)
+def create_logger():
+    logger = logging.getLogger(__name__)
+    return logger
