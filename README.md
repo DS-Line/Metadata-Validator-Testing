@@ -8,5 +8,10 @@
 - python3 pyvalidator/test/semantic_validator.py
 
 
-- Enter the relative path for ddl, schema and semantics for the respective scripts.
-- e.g. ddl_path = "./assets/DDL/infra_asset_details.sql"
+- Configure Metadata Path for each script.
+- Your file structure should look like this:
+        metadata/
+    ├── ddl/
+    ├── schema/
+    ├── semantics/
+    └── registry.yml
