@@ -129,9 +129,10 @@ class SchemaValidator():
         if errors:
             errors = decipher_error_messages(yaml_path=schema_path,errors=errors)
             print_decorated_section(title="Schema Validation Errors", content=errors)
+            return errors
         else:
             print_decorated_section(title="Schema Validation Passed")
-    
+            return None
 
                 
                 
@@ -154,8 +155,8 @@ def main(ddl_path, schema_path):
         print_decorated_section(title= "Duplicate Key Error", content=[f"Duplicate Key found: {e}"])
         
     
-    ddl_validator.validate_schema(schema_path)
-        
+    errors = ddl_validator.validate_schema(schema_path)
+    return errors
 
 
 

@@ -245,7 +245,7 @@ def validate_semantic_format(semantic_path:str):
             
     else:
         print_decorated_section(title="Format Validation Passed")
-            
+        return None
             
 if __name__ == "__main__":
     validate_semantic_format(semantic_path="./assets/semantics/movies.yml")
