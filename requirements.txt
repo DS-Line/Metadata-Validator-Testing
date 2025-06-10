@@ -36,3 +36,5 @@ typing-inspection==0.4.0
 typing_extensions==4.13.1
 wcwidth==0.2.13
 ruamel.yaml
+dotenv
+google-genai
