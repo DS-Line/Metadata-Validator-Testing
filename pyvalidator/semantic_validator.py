@@ -24,18 +24,18 @@ class SemanticsValidator:
 
     def _parse_sources(self):
         column_ids = []
-        for index,source in self.sources.items():
+        for key,source in self.sources.items():
             if source.get("columns",None):
                 columns = list(source["columns"].keys())
-                column_ids.append(columns)
+                column_ids.extend(columns)
             
             if source.get("attributes", None):
                 columns = list(source["attributes"].keys())
-                column_ids.append(columns)
+                column_ids.extend(columns)
             
             if source.get("metrics",None):
                 columns = list(source["metrics"].keys())
-                column_ids.append(columns)
+                column_ids.extend(columns)
         return column_ids
         
                 
@@ -87,7 +87,8 @@ class SemanticsValidator:
         
         registry_path = os.path.join(metadata_path, "registry.yml")
         with open(registry_path) as f:
-            registries = yaml.load(f)
+            registry = yaml.load(f)
+            registries = registry.get("registered_yml", None)
         
         source_keys = list(sources.keys())
         
@@ -100,89 +101,90 @@ class SemanticsValidator:
             source_type = parsed_source.get("prefix", None)
             file_name = parsed_source.get("file_name",None)
             
-            if file_name in registries:
-                source_path = os.path.join(metadata_path, source_type, file_name + ".yaml")
-                
-                try:
-                    with open(source_path) as f:
-                        source_raw = yaml.load(f)
-                        buf = StringIO()
-                        yaml.dump(source_raw, buf)
-                        source_raw = pyyaml.safe_load(buf.getvalue())
-                        print(type(source_raw))
-                except FileNotFoundError as e:
-                    self.errors.append(
-                            {
-                                "loc": ("source", f"{source_type}.{file_name}"),
-                                "type": "file_not_found",
-                                "msg": f"{e}"
-                            }
-                        )
-                    print_decorated_section(title="File Not Found", content=self.errors)
-                    continue
+            # if file_name in registries:
+            source_path = os.path.join(metadata_path, source_type, file_name + ".yaml")
+            
+            try:
+                with open(source_path) as f:
+                    source_raw = yaml.load(f)
+                    buf = StringIO()
+                    yaml.dump(source_raw, buf)
+                    source_raw = pyyaml.safe_load(buf.getvalue())
+            except FileNotFoundError as e:
+                self.errors.append(
+                        {
+                            "loc": ("source", f"{source_type}.{file_name}"),
+                            "type": "file_not_found",
+                            "msg": f"{e}"
+                        }
+                    )
+                print_decorated_section(title="File Not Found", content=self.errors)
+                continue
 
-                source_key = f"{source_type}.{file_name}"
+            source_key = f"{source_type}.{file_name}"
+            
+            specified_source = sources[source_key]
+            filtered_source = {}
+            filtered_columns = {}
+            
+            if source_type == "schema":
+                columns = specified_source.get("columns", None)
                 
-                specified_source = sources[source_key]
-                filtered_source = {}
-                filtered_columns = []
+                if columns == ["<all>"]:
+                    self.sources.update(source_raw)
                 
-                if source_type == "schema":
-                    columns = specified_source.get("columns", None)
+                else:
+                    source_raw = source_raw[file_name]
+                    for column in columns:
+                        filtered_columns.update({column:source_raw["columns"].get(column, None)})
+
+                    filtered_source.update({"subject_area":source_raw["subject_area"]})
+                    filtered_source.update({"table_info":source_raw["table_info"]})
+                    filtered_source.update({"columns":filtered_columns})
+                    self.sources.update({file_name: filtered_source})
                     
-                    if columns == ["<all>"]:
+                
+            elif source_type == "semantics":
+                attributes = specified_source.get("attributes", None)
+                metrics = specified_source.get("metrics, None")
+                
+                if attributes:
+
+                    if attributes == ["<all>"]:
                         self.sources.update(source_raw)
                     
                     else:
-                        for column in columns:
-                            filtered_columns.append(source_raw["columns"].get(column, None))
-
-                        filtered_source.update({"subject_area":source_raw["subject_area"]})
-                        filtered_source.update({"table_info":source_raw["table_info"]})
-                        filtered_source.update({"columns":filtered_columns})
-                        self.sources.update({file_name: filtered_source})
+                        for column in attributes:
+                            filtered_columns.append(source_raw["attributes"].get(column, None))
+                            filtered_source.update({"attributes":filtered_columns})
+                            
+                if metrics:
+                    filtered_columns = []
+                    if metrics == ["<all>"]:
+                        self.sources.update(source_raw)
                     
-                elif source_type == "semantics":
-                    attributes = specified_source.get("attributes", None)
-                    metrics = specified_source.get("metrics, None")
-                    
-                    if attributes:
-
-                        if attributes == ["<all>"]:
-                            self.sources.update(source_raw)
-                        
-                        else:
-                            for column in attributes:
-                                filtered_columns.append(source_raw["attributes"].get(column, None))
-                                filtered_source.update({"attributes":filtered_columns})
-                                
-                    if metrics:
-                        filtered_columns = []
-                        if metrics == ["<all>"]:
-                            self.sources.update(source_raw)
-                        
-                        else:
-                            for column in attributes:
-                                filtered_columns.append(source_raw["metrics"].get(column, None))                   
-                                filtered_metrics = {"metrics": filtered_columns}
-                                filtered_source.update({"metrics": filtered_metrics})
-                                
-                    filtered_source.update({"folder":source_raw["folder"]})
-                    filtered_source.update({"type":source_raw["type"]})
-                    filtered_source.update({"source":source_raw["source"]})
-                    self.sources.update({file_name: filtered_source})                    
+                    else:
+                        for column in attributes:
+                            filtered_columns.append(source_raw["metrics"].get(column, None))                   
+                            filtered_metrics = {"metrics": filtered_columns}
+                            filtered_source.update({"metrics": filtered_metrics})
+                            
+                filtered_source.update({"folder":source_raw["folder"]})
+                filtered_source.update({"type":source_raw["type"]})
+                filtered_source.update({"source":source_raw["source"]})
+                self.sources.update({file_name: filtered_source})                    
 
                 
             
             
-            else:
-                self.errors.append(
-                    {
-                        "loc": ("source", f"{source_type}.{file_name}"),
-                        "type": "missing_in_registry",
-                        "msg": "File Missing in Registry. Also Check if there is a file for this source"                        
-                    }
-                )
+            # else:
+            #     self.errors.append(
+            #         {
+            #             "loc": ("source", f"{source_type}.{file_name}"),
+            #             "type": "missing_in_registry",
+            #             "msg": "File Missing in Registry. Also Check if there is a file for this source"                        
+            #         }
+            #     )
             
             
         
@@ -207,6 +209,8 @@ class SemanticsValidator:
         self._get_sources(sources, registry_path)
         
         source_columns = self._parse_sources()
+        
+        
         attributes = generated_semantics.get("attributes", {})
         metrics = generated_semantics.get("metrics", {})
 
