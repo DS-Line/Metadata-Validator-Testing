@@ -7,16 +7,17 @@ import os
 yaml = YAML()
 logger = create_logger()
 
-metadata_path = "./assets/adventure_metadata/"
+metadata_path = "./assets/"
 registry_path = os.path.join(metadata_path,"registry.yml")
 
 with open(registry_path,'r') as f:
-    registries =  yaml.load(f)
+   registry = yaml.load(f)
+   registries = registry.get("registered_yml", None)
 
 
 for registry in registries:
-    schema_path = os.path.join(metadata_path,"schema",registry + ".yaml")
-    semantic_path = os.path.join(metadata_path, "semantics",registry + ".yaml")
+    schema_path = os.path.join(metadata_path,"schema",registry + ".yml")
+    semantic_path = os.path.join(metadata_path, "semantics",registry + ".yml")
     
     validator = SemanticsValidator()
 

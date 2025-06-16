@@ -146,6 +146,7 @@ class Metrics(BaseModel):
     synonym: Optional[List[str]] = None
     description: Optional[str] = None
     calculation: Optional[str] = None
+    filters: Optional[List[str]] = []
     granularity: Optional[List[str]] = None
     include: Optional[List[str]] = None
     function: Optional[str] = None
